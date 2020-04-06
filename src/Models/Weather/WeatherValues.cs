@@ -5,13 +5,13 @@ namespace Models.Weather
     public class WeatherValues
     {
         [JsonProperty("temp")]
-        public long Temperature { get; set; }
+        public double Temperature { get; set; }
         [JsonProperty("feels_like")]
-        public long FeelsLike { get; set; }
+        public double FeelsLike { get; set; }
         [JsonProperty("temp_min")]
-        public long MinTemp { get; set; }
+        public double MinTemp { get; set; }
         [JsonProperty("temp_max")]
-        public long MaxTemp { get; set; }
+        public double MaxTemp { get; set; }
         [JsonProperty("pressure")]
         public int Pressure { get; set; }
         [JsonProperty("humidity")]

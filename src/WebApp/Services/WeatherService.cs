@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Models.Configuration;
 using Models.Weather;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace WebApp.Services
@@ -19,14 +20,22 @@ namespace WebApp.Services
 
         public async Task<WeatherResponse> GetCurrentWeather()
         {
-            await _client.ExecuteGetAsync(BuildRequest());
-            return new WeatherResponse();
+            var response = await _client.ExecuteGetAsync(BuildRequest());
+            var content = JsonConvert.DeserializeObject<WeatherResponse>(response.Content);
+
+            return content;
         }
 
         private RestRequest BuildRequest()
         {
             var parameters = _config.Value;
-            return new RestRequest(parameters.ActionUri, Method.GET);
+            var request = new RestRequest(parameters.ActionUri, Method.GET);
+            request.AddQueryParameter("lat", parameters.Latitude.ToString());
+            request.AddQueryParameter("lon", parameters.Longitude.ToString());
+            request.AddQueryParameter("units", parameters.Units);
+            request.AddQueryParameter("appid", parameters.ApiKey);
+
+            return request;
         }
     }
 }

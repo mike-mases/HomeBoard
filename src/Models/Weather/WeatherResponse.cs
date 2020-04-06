@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Models.Weather
@@ -7,7 +8,7 @@ namespace Models.Weather
         [JsonProperty("coord")]
         public Coordiantes Coordiantes { get; set; }
         [JsonProperty("weather")]
-        public WeatherStatistics WeatherStats { get; set; }
+        public IEnumerable<WeatherStatistics> WeatherStats { get; set; }
         [JsonProperty("base")]
         public string Source { get; set; }
         [JsonProperty("main")]

@@ -18,5 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\WebApp\HomeBoard.WebApp.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\**" CopyToOutputDirectory="PreserveNewest" LinkBase="TestData\" />
+  </ItemGroup>
 
 </Project>
