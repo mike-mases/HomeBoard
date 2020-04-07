@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -10,6 +11,7 @@ namespace WebApp.Services
 {
     public class WeatherService : IWeatherService
     {
+        private const string CacheKey = "CurrentWeather";
         private readonly IRestClient _client;
         private readonly IOptions<WeatherConfiguration> _config;
         private readonly IMemoryCache _cache;
@@ -23,11 +25,25 @@ namespace WebApp.Services
 
         public async Task<WeatherResponse> GetCurrentWeather()
         {
-            var response = await _client.ExecuteGetAsync(BuildRequest());
-            var content = JsonConvert.DeserializeObject<WeatherResponse>(response.Content);
-            _cache.Set<WeatherResponse>("CurrentWeather", content);
+            var content = await _cache.GetOrCreateAsync(CacheKey, entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_config.Value.CacheTimeoutSeconds);
+                return GetFromWeatherService();
+            });
 
             return content;
+        }
+
+        private async Task<WeatherResponse> GetFromWeatherService()
+        {
+            var response = await _client.ExecuteGetAsync(BuildRequest());
+            return JsonConvert.DeserializeObject<WeatherResponse>(response.Content);
+        }
+
+        private void SetWeatherCache(WeatherResponse weather)
+        {
+            var options = new MemoryCacheEntryOptions { };
+            _cache.Set<WeatherResponse>("CurrentWeather", weather);
         }
 
         private RestRequest BuildRequest()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -28,5 +29,15 @@ namespace Models.Weather
         public int CityId { get; set; }
         [JsonProperty("name")]
         public string CityName { get; set; }
+
+        public string TimeFormatted
+        {
+            get
+            {
+                var time = new DateTime(1970, 1, 1).ToUniversalTime();
+                time = time.AddSeconds(Time);
+                return time.ToLocalTime().ToString();
+            }
+        }
     }
 }

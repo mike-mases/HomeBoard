@@ -8,5 +8,6 @@ namespace Models.Configuration
         public string Units { get; set; }
         public string ApiKey { get; set; }
         public string BaseUrl { get; set; }
+        public int CacheTimeoutSeconds { get; set; }
     }
 }

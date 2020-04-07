@@ -108,6 +108,16 @@ namespace WebApp.UnitTests.Services
             _cache.Received(1).CreateEntry(Arg.Is("CurrentWeather"));
         }
 
+        [Test]
+        public async Task NotCallWeatherServiceWithCacheHit(){
+            _cache.TryGetValue("CurrentWeather", out _).Returns(true).AndDoes(x => {
+                x[1] = new WeatherResponse();
+            });
+            await _service.GetCurrentWeather();
+
+            await _client.ReceivedWithAnyArgs(0).ExecuteGetAsync(Arg.Any<IRestRequest>());
+        }
+
         private string GetTestDataText(string fileName)
         {
             return File.ReadAllText($"./TestData/{fileName}");
