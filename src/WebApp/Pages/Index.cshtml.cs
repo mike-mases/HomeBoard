@@ -25,6 +25,7 @@ namespace HomeBoard.WebApp.Pages
 
         public async Task OnGet()
         {
+            _logger.LogInformation($"Weather page requested");
             Weather = await _weatherService.GetCurrentWeather();
         }
     }
