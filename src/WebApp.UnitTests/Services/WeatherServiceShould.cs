@@ -101,6 +101,13 @@ namespace WebApp.UnitTests.Services
             result.Should().BeEquivalentTo(expected);
         }
 
+        [Test]
+        public async Task SetMemoryCacheWhenResultRetrieved(){
+            await _service.GetCurrentWeather();
+
+            _cache.Received(1).CreateEntry(Arg.Is("CurrentWeather"));
+        }
+
         private string GetTestDataText(string fileName)
         {
             return File.ReadAllText($"./TestData/{fileName}");

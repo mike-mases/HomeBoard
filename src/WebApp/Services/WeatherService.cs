@@ -25,6 +25,7 @@ namespace WebApp.Services
         {
             var response = await _client.ExecuteGetAsync(BuildRequest());
             var content = JsonConvert.DeserializeObject<WeatherResponse>(response.Content);
+            _cache.Set<WeatherResponse>("CurrentWeather", content);
 
             return content;
         }
