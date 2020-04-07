@@ -3,6 +3,7 @@ namespace WebApp.UnitTests.Services
     using System.IO;
     using System.Threading.Tasks;
     using FluentAssertions;
+    using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Options;
     using Models.Configuration;
     using Models.Weather;
@@ -18,6 +19,7 @@ namespace WebApp.UnitTests.Services
         private IRestClient _client;
         private WeatherService _service;
         private IOptions<WeatherConfiguration> _config;
+        private IMemoryCache _cache;
 
         [SetUp]
         public void Setup()
@@ -32,8 +34,9 @@ namespace WebApp.UnitTests.Services
                 Units = "metric",
                 ApiKey = "testkey"
             });
+            _cache = Substitute.For<IMemoryCache>();
 
-            _service = new WeatherService(_client, _config);
+            _service = new WeatherService(_client, _config, _cache);
             var jsonString = GetTestDataText("weather-api-response.json");
             _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { Content = jsonString });
         }
