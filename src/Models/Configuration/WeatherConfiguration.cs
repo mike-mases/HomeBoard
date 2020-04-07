@@ -7,5 +7,6 @@ namespace Models.Configuration
         public double Longitude { get; set; }
         public string Units { get; set; }
         public string ApiKey { get; set; }
+        public string BaseUrl { get; set; }
     }
 }

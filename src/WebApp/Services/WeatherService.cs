@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Models.Configuration;
 using Models.Weather;
@@ -7,15 +8,17 @@ using RestSharp;
 
 namespace WebApp.Services
 {
-    public class WeatherService
+    public class WeatherService : IWeatherService
     {
         private readonly IRestClient _client;
         private readonly IOptions<WeatherConfiguration> _config;
+        private readonly IMemoryCache _cache;
 
-        public WeatherService(IRestClient client, IOptions<WeatherConfiguration> config)
+        public WeatherService(IRestClient client, IOptions<WeatherConfiguration> config, IMemoryCache cache)
         {
             _config = config;
             _client = client;
+            _cache = cache;
         }
 
         public async Task<WeatherResponse> GetCurrentWeather()

@@ -5,21 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Models.Weather;
+using WebApp.Services;
 
 namespace HomeBoard.WebApp.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly IWeatherService _weatherService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public WeatherResponse Weather { get; set; }
+
+        public IndexModel(ILogger<IndexModel> logger, IWeatherService weatherService)
         {
             _logger = logger;
+            _weatherService = weatherService;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-
+            Weather = await _weatherService.GetCurrentWeather();
         }
     }
 }
