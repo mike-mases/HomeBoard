@@ -40,12 +40,6 @@ namespace WebApp.Services
             return JsonConvert.DeserializeObject<WeatherResponse>(response.Content);
         }
 
-        private void SetWeatherCache(WeatherResponse weather)
-        {
-            var options = new MemoryCacheEntryOptions { };
-            _cache.Set<WeatherResponse>("CurrentWeather", weather);
-        }
-
         private RestRequest BuildRequest()
         {
             var parameters = _config.Value;
