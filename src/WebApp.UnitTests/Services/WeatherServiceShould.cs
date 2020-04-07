@@ -1,6 +1,8 @@
 namespace WebApp.UnitTests.Services
 {
+    using System;
     using System.IO;
+    using System.Net;
     using System.Threading.Tasks;
     using FluentAssertions;
     using Microsoft.Extensions.Caching.Memory;
@@ -38,7 +40,13 @@ namespace WebApp.UnitTests.Services
 
             _service = new WeatherService(_client, _config, _cache);
             var jsonString = GetTestDataText("weather-api-response.json");
-            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { Content = jsonString });
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs
+            (new RestResponse
+            {
+                Content = jsonString,
+                StatusCode = HttpStatusCode.OK,
+                ResponseStatus = ResponseStatus.Completed
+            });
         }
 
         [Test]
@@ -102,20 +110,46 @@ namespace WebApp.UnitTests.Services
         }
 
         [Test]
-        public async Task SetMemoryCacheWhenResultRetrieved(){
+        public async Task SetMemoryCacheWhenResultRetrieved()
+        {
             await _service.GetCurrentWeather();
 
             _cache.Received(1).CreateEntry(Arg.Is("CurrentWeather"));
         }
 
         [Test]
-        public async Task NotCallWeatherServiceWithCacheHit(){
-            _cache.TryGetValue("CurrentWeather", out _).Returns(true).AndDoes(x => {
+        public async Task NotCallWeatherServiceWithCacheHit()
+        {
+            _cache.TryGetValue("CurrentWeather", out _).Returns(true).AndDoes(x =>
+            {
                 x[1] = new WeatherResponse();
             });
             await _service.GetCurrentWeather();
 
             await _client.ReceivedWithAnyArgs(0).ExecuteGetAsync(Arg.Any<IRestRequest>());
+        }
+
+        [Test]
+        public async Task HandleUnsucessful()
+        {
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
+            var result = await _service.GetCurrentWeather();
+
+            result.Should().BeEquivalentTo(new WeatherResponse());
+        }
+
+        [Test]
+        public async Task HandleMalformedJson()
+        {
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs
+            (new RestResponse
+            {
+                Content = "{malformedjson",
+                StatusCode = HttpStatusCode.OK,
+                ResponseStatus = ResponseStatus.Completed
+            });
+
+            await _service.Invoking(s => s.GetCurrentWeather()).Should().NotThrowAsync<JsonReaderException>();
         }
 
         private string GetTestDataText(string fileName)

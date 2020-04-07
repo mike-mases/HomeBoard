@@ -37,7 +37,25 @@ namespace WebApp.Services
         private async Task<WeatherResponse> GetFromWeatherService()
         {
             var response = await _client.ExecuteGetAsync(BuildRequest());
-            return JsonConvert.DeserializeObject<WeatherResponse>(response.Content);
+
+            if (!response.IsSuccessful)
+            {
+                return new WeatherResponse();
+            }
+
+            return DeserialiseWeatherReponse(response.Content);
+        }
+
+        private WeatherResponse DeserialiseWeatherReponse(string jsonString)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<WeatherResponse>(jsonString);
+            }
+            catch (JsonReaderException)
+            {
+                return new WeatherResponse();
+            }
         }
 
         private RestRequest BuildRequest()
