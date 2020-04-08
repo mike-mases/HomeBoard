@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Models.Configuration;
 using Models.Weather;
@@ -15,12 +16,18 @@ namespace WebApp.Services
         private readonly IRestClient _client;
         private readonly IOptions<WeatherConfiguration> _config;
         private readonly IMemoryCache _cache;
+        private readonly ILogger<WeatherService> _logger;
 
-        public WeatherService(IRestClient client, IOptions<WeatherConfiguration> config, IMemoryCache cache)
+        public WeatherService(
+            IRestClient client, 
+            IOptions<WeatherConfiguration> config, 
+            IMemoryCache cache,
+            ILogger<WeatherService> logger)
         {
             _config = config;
             _client = client;
             _cache = cache;
+            _logger = logger;
         }
 
         public async Task<WeatherResponse> GetCurrentWeather()
@@ -40,6 +47,8 @@ namespace WebApp.Services
 
             if (!response.IsSuccessful)
             {
+                var details = _config.Value;
+                _logger.LogError($"Call to service failed for lat: {details.Latitude}, lon: {details.Longitude}, units: {details.Units}, key: {details.ApiKey}, uri: {details.ActionUri}");
                 return new WeatherResponse();
             }
 

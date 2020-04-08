@@ -20,7 +20,11 @@ namespace HomeBoard.WebApp
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    var config = new ConfigurationBuilder()
+                                .AddCommandLine(args)
+                                .Build();
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseConfiguration(config);
                 });
     }
 }

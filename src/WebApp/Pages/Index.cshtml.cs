@@ -25,7 +25,8 @@ namespace HomeBoard.WebApp.Pages
 
         public async Task OnGet()
         {
-            _logger.LogInformation($"Weather page requested");
+            var clientIp = HttpContext.Connection.RemoteIpAddress.ToString();
+            _logger.LogInformation($"Weather page requested from IP {clientIp}");
             Weather = await _weatherService.GetCurrentWeather();
         }
     }

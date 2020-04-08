@@ -6,6 +6,7 @@ namespace WebApp.UnitTests.Services
     using System.Threading.Tasks;
     using FluentAssertions;
     using Microsoft.Extensions.Caching.Memory;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Models.Configuration;
     using Models.Weather;
@@ -22,6 +23,7 @@ namespace WebApp.UnitTests.Services
         private WeatherService _service;
         private IOptions<WeatherConfiguration> _config;
         private IMemoryCache _cache;
+        private ILogger<WeatherService> _logger;
 
         [SetUp]
         public void Setup()
@@ -37,8 +39,9 @@ namespace WebApp.UnitTests.Services
                 ApiKey = "testkey"
             });
             _cache = Substitute.For<IMemoryCache>();
+            _logger = Substitute.For<ILogger<WeatherService>>();
 
-            _service = new WeatherService(_client, _config, _cache);
+            _service = new WeatherService(_client, _config, _cache, _logger);
             var jsonString = GetTestDataText("weather-api-response.json");
             _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs
             (new RestResponse
@@ -150,6 +153,22 @@ namespace WebApp.UnitTests.Services
             });
 
             await _service.Invoking(s => s.GetCurrentWeather()).Should().NotThrowAsync<JsonReaderException>();
+        }
+
+        [Test]
+        public async Task LogUnsuccessfulRequests()
+        {
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
+            var result = await _service.GetCurrentWeather();
+
+            // _logger.Received(1).Log(Arg.Is(LogLevel.Error), Arg.Is("Call to service failed for lat: 2.1, lon: 4.2, units: metric, key: testkey, uri: testuri"));
+            _logger.Received(1).Log<object>(
+            LogLevel.Error,
+            Arg.Any<EventId>(),
+            Arg.Any<object>(),
+            null,
+            Arg.Any<Func<object, Exception, string>>()
+            );
         }
 
         private string GetTestDataText(string fileName)
