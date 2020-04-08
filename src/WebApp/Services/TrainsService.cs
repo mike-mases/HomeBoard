@@ -1,5 +1,8 @@
+using System.Text;
+using System.IO;
 using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using HomeBoard.Models.Configuration;
 using HomeBoard.Models.Trains;
 using Microsoft.Extensions.Caching.Memory;
@@ -30,8 +33,14 @@ namespace HomeBoard.WebApp.Services
 
         public async Task<StationBoard> GetStationBoard()
         {
-            await _client.ExecuteGetAsync(BuildRequest());
-            return new StationBoard();
+            var result = await _client.ExecuteGetAsync(BuildRequest());
+            return DeserialiseStationBoard(result.Content);
+        }
+
+        private StationBoard DeserialiseStationBoard(string content){
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+            var deserializer = new XmlSerializer(typeof(StationBoard));
+            return deserializer.Deserialize(stream) as StationBoard;
         }
 
         private RestRequest BuildRequest()

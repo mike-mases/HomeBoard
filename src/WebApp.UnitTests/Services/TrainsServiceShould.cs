@@ -1,3 +1,4 @@
+using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
@@ -8,6 +9,9 @@ using System.Threading.Tasks;
 using HomeBoard.Models.Configuration;
 using HomeBoard.WebApp.Services;
 using Microsoft.Extensions.Caching.Memory;
+using HomeBoard.Models.Trains;
+using System.Xml.Serialization;
+using System.Net;
 
 namespace HomeBoard.WebApp.UnitTests.Services
 {
@@ -24,7 +28,8 @@ namespace HomeBoard.WebApp.UnitTests.Services
         public void Setup()
         {
             _options = Substitute.For<IOptions<TrainsConfiguration>>();
-            _options.Value.Returns(new TrainsConfiguration{
+            _options.Value.Returns(new TrainsConfiguration
+            {
                 StationId = "testId"
             });
             _client = Substitute.For<IRestClient>();
@@ -32,6 +37,15 @@ namespace HomeBoard.WebApp.UnitTests.Services
             _cache = Substitute.For<IMemoryCache>();
 
             _service = new TrainsService(_options, _client, _logger, _cache);
+
+            var content = GetTestDataStream("trains-feed-response.xml").ReadToEnd();
+            _client.ExecuteGetAsync(Arg.Any<RestRequest>()).Returns(
+                new RestResponse
+                {
+                    Content = content,
+                    StatusCode = HttpStatusCode.OK,
+                    ResponseStatus = ResponseStatus.Completed
+                });
         }
 
         [Test]
@@ -47,6 +61,27 @@ namespace HomeBoard.WebApp.UnitTests.Services
         {
             await _service.GetStationBoard();
             await _client.Received(1).ExecuteGetAsync(Arg.Is<IRestRequest>(r => r.Resource.Equals("testId.xml")));
+        }
+
+        [Test]
+        public async Task PopulateTheStationBoardObject()
+        {
+            var expected = GetTestData("trains-feed-response.xml");
+            var result = await _service.GetStationBoard();
+
+            result.Should().BeEquivalentTo(expected);
+        }
+
+        private StreamReader GetTestDataStream(string fileName)
+        {
+            return new StreamReader($"./TestData/{fileName}");
+        }
+
+        private StationBoard GetTestData(string fileName)
+        {
+            var stream = GetTestDataStream(fileName);
+            var deserializer = new XmlSerializer(typeof(StationBoard));
+            return deserializer.Deserialize(stream) as StationBoard;
         }
     }
 }
