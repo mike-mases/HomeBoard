@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using HomeBoard.Models.Confguration;
 using HomeBoard.Models.Trains;
 using Microsoft.Extensions.Logging;
@@ -20,9 +21,9 @@ namespace Homeboard.WebApp.Services
             _logger = logger;
         }
 
-        public StationBoard GetStationBoard()
+        public async Task<StationBoard> GetStationBoard()
         {
-            throw new NotImplementedException();
+            return new StationBoard();
         }
     }
 }

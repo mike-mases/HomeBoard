@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using Homeboard.WebApp.Services;
 using HomeBoard.Models.Confguration;
 using Microsoft.Extensions.Logging;
@@ -5,6 +6,8 @@ using Microsoft.Extensions.Options;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
+using FluentAssertions;
+using System.Threading.Tasks;
 
 namespace Homeboard.WebApp.UnitTests.Services
 {
@@ -25,6 +28,14 @@ namespace Homeboard.WebApp.UnitTests.Services
             _logger = Substitute.For<ILogger<TrainsService>>();
 
             _service = new TrainsService(_options, _client, _logger);
+        }
+
+        [Test]
+        public async Task ReturnStationBoard()
+        {
+            var result = await _service.GetStationBoard();
+
+            result.Should().NotBeNull();
         }
     }
 }

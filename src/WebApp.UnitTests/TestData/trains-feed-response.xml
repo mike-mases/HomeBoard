@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StationBoard name="Hitchin" tiploc="HITCHIN" crs="HIT" PlatformData="Yes" Timestamp="08/04/2020 11:28:32">
+    <TridentId>NoSemaAccess</TridentId>
+    <Service Headcode="1P27" Uid="X52105" RetailID="" TigerID="1">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1129" Arrived="No" timestamp="20200408112900" />
+        <DepartTime time="1129" timestamp="20200408112900" sorttimestamp="20200408112900" />
+        <Platform Number="1" Changed="No" Parent="1" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="HITCHIN" time="1128" type="T" station1="Hitchin" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Peterborough" tiploc="PBRO" crs="PBO" />
+        <Destination1 name="London Kings Cross" tiploc="KNGX" crs="KGX" ttarr="1202" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="2">
+            <CallingPoint Name="Stevenage" tiploc="STEVNGE" crs="SVG" ttarr="1134" ttdep="1135" etarr="1134" etdep="1135" type="T" />
+            <CallingPoint Name="Finsbury Park" tiploc="FNPK" crs="FPK" ttarr="1155" ttdep="1156" etarr="1155" etdep="1156" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="2C41" Uid="X52463" RetailID="" TigerID="2">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1133" Arrived="No" timestamp="20200408113300" />
+        <DepartTime time="1134" timestamp="20200408113400" sorttimestamp="20200408113400" />
+        <Platform Number="1" Changed="No" Parent="1" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="HITCHIN" time="1128" type="B" station1="Letchworth Garden City" station2="Hitchin" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" />
+        <Destination1 name="London Kings Cross" tiploc="KNGX" crs="KGX" ttarr="1219" etarr="" />
+        <Via></Via>
+        <Coaches1>8</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="7">
+            <CallingPoint Name="Stevenage" tiploc="STEVNGE" crs="SVG" ttarr="1139" ttdep="1140" etarr="1139" etdep="1140" type="T" />
+            <CallingPoint Name="Knebworth" tiploc="KNEBWTH" crs="KBW" ttarr="1144" ttdep="1144" etarr="1144" etdep="1144" type="T" />
+            <CallingPoint Name="Welwyn North" tiploc="WLWYNN" crs="WLW" ttarr="1147" ttdep="1147" etarr="1147" etdep="1147" type="T" />
+            <CallingPoint Name="Welwyn Garden City" tiploc="WLWYNGC" crs="WGC" ttarr="1151" ttdep="1152" etarr="1151" etdep="1152" type="T" />
+            <CallingPoint Name="Hatfield" tiploc="HATFILD" crs="HAT" ttarr="1156" ttdep="1156" etarr="1156" etdep="1156" type="T" />
+            <CallingPoint Name="Potters Bar" tiploc="POTRSBR" crs="PBR" ttarr="1201" ttdep="1202" etarr="1201" etdep="1202" type="T" />
+            <CallingPoint Name="Finsbury Park" tiploc="FNPK" crs="FPK" ttarr="1212" ttdep="1213" etarr="1212" etdep="1213" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="1P26" Uid="X52104" RetailID="" TigerID="3">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1145" Arrived="No" timestamp="20200408114500" />
+        <DepartTime time="1145" timestamp="20200408114500" sorttimestamp="20200408114500" />
+        <Platform Number="2" Changed="No" Parent="2" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="BRKMNPK" time="1128" type="T" station1="Brookmans Park" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="London Kings Cross" tiploc="KNGX" crs="KGX" />
+        <Destination1 name="Peterborough" tiploc="PBRO" crs="PBO" ttarr="1229" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="5">
+            <CallingPoint Name="Arlesey" tiploc="ARLSEY" crs="ARL" ttarr="1150" ttdep="1150" etarr="1150" etdep="1150" type="T" />
+            <CallingPoint Name="Biggleswade" tiploc="BIGLSWD" crs="BIW" ttarr="1155" ttdep="1155" etarr="1155" etdep="1155" type="T" />
+            <CallingPoint Name="Sandy" tiploc="SNDY" crs="SDY" ttarr="1159" ttdep="1159" etarr="1159" etdep="1159" type="T" />
+            <CallingPoint Name="St Neots" tiploc="STNEOTS" crs="SNO" ttarr="1206" ttdep="1206" etarr="1206" etdep="1206" type="T" />
+            <CallingPoint Name="Huntingdon" tiploc="HNTNGDN" crs="HUN" ttarr="1213" ttdep="1213" etarr="1213" etdep="1213" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="2C20" Uid="X52430" RetailID="" TigerID="4">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1149" Arrived="No" timestamp="20200408114900" />
+        <DepartTime time="1150" timestamp="20200408115000" sorttimestamp="20200408115000" />
+        <Platform Number="2" Changed="No" Parent="2" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="WLWYNGC" time="1127" type="T" station1="Welwyn Garden City" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine>Use FRONT 4 coaches for Meldreth</CommentLine>
+        <CommentLine2>FRONT 8 for Shepreth &amp; Foxton</CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="London Kings Cross" tiploc="KNGX" crs="KGX" />
+        <Destination1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" ttarr="1228" etarr="" />
+        <Via></Via>
+        <Coaches1>8</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="7">
+            <CallingPoint Name="Letchworth Garden City" tiploc="LTCE" crs="LET" ttarr="1155" ttdep="1156" etarr="1155" etdep="1156" type="T" />
+            <CallingPoint Name="Baldock" tiploc="BALDOCK" crs="BDK" ttarr="1159" ttdep="1159" etarr="1159" etdep="1159" type="T" />
+            <CallingPoint Name="Ashwell &amp; Morden" tiploc="ASHWELC" crs="AWM" ttarr="1204" ttdep="1204" etarr="1204" etdep="1204" type="T" />
+            <CallingPoint Name="Royston" tiploc="ROYSTON" crs="RYS" ttarr="1208" ttdep="1209" etarr="1208" etdep="1209" type="T" />
+            <CallingPoint Name="Meldreth" tiploc="MELDRTH" crs="MEL" ttarr="1212" ttdep="1212" etarr="1212" etdep="1212" type="T" />
+            <CallingPoint Name="Shepreth" tiploc="SHPRTH" crs="STH" ttarr="1215" ttdep="1215" etarr="1215" etdep="1215" type="T" />
+            <CallingPoint Name="Foxton" tiploc="FOXTON" crs="FXN" ttarr="1217" ttdep="1217" etarr="1217" etdep="1217" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="9S29" Uid="X54272" RetailID="" TigerID="5">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1158" Arrived="No" timestamp="20200408115800" />
+        <DepartTime time="1159" timestamp="20200408115900" sorttimestamp="20200408115900" />
+        <Platform Number="1" Changed="No" Parent="1" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="FOXTON" time="1128" type="B" station1="Cambridge" station2="Foxton" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" />
+        <Destination1 name="Gatwick Airport" tiploc="GTWK" crs="GTW" ttarr="1327" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="10">
+            <CallingPoint Name="Stevenage" tiploc="STEVNGE" crs="SVG" ttarr="1204" ttdep="1205" etarr="1204" etdep="1205" type="T" />
+            <CallingPoint Name="Finsbury Park" tiploc="FNPK" crs="FPK" ttarr="1224" ttdep="1228" etarr="1224" etdep="1228" type="T" />
+            <CallingPoint Name="London St Pancras" tiploc="STPXBOX" crs="SPL" ttarr="1234" ttdep="1235" etarr="1234" etdep="1235" type="T" />
+            <CallingPoint Name="Farringdon" tiploc="FRNDNLT" crs="ZFD" ttarr="1239" ttdep="1239" etarr="1239" etdep="1239" type="T" />
+            <CallingPoint Name="City Thameslink" tiploc="CTMSLNK" crs="CTK" ttarr="1241" ttdep="1241" etarr="1241" etdep="1241" type="T" />
+            <CallingPoint Name="London Blackfriars" tiploc="BLFR" crs="BFR" ttarr="1243" ttdep="1244" etarr="1243" etdep="1244" type="T" />
+            <CallingPoint Name="London Bridge" tiploc="LNDNBDG" crs="LBG" ttarr="1250" ttdep="1251" etarr="1250" etdep="1251" type="T" />
+            <CallingPoint Name="Norwood Junction" tiploc="NORWDJ" crs="NWD" ttarr="1303" ttdep="1303" etarr="1303" etdep="1303" type="T" />
+            <CallingPoint Name="East Croydon" tiploc="ECROYDN" crs="ECR" ttarr="1307" ttdep="1307" etarr="1307" etdep="1307" type="T" />
+            <CallingPoint Name="Redhill" tiploc="REDHILL" crs="RDH" ttarr="1319" ttdep="1319" etarr="1319" etdep="1319" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="9S20" Uid="X54267" RetailID="" TigerID="6">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1212" Arrived="No" timestamp="20200408121200" />
+        <DepartTime time="1213" timestamp="20200408121300" sorttimestamp="20200408121300" />
+        <Platform Number="2" Changed="No" Parent="2" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="BLFR" time="1124" type="B" station1="London Bridge" station2="London Blackfriars" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Gatwick Airport" tiploc="GTWK" crs="GTW" />
+        <Destination1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" ttarr="1248" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="3">
+            <CallingPoint Name="Letchworth Garden City" tiploc="LTCE" crs="LET" ttarr="1218" ttdep="1218" etarr="1218" etdep="1218" type="T" />
+            <CallingPoint Name="Baldock" tiploc="BALDOCK" crs="BDK" ttarr="1221" ttdep="1222" etarr="1221" etdep="1222" type="T" />
+            <CallingPoint Name="Royston" tiploc="ROYSTON" crs="RYS" ttarr="1229" ttdep="1230" etarr="1229" etdep="1230" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="1P31" Uid="X52107" RetailID="" TigerID="7">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1224" Arrived="No" timestamp="20200408122400" />
+        <DepartTime time="1224" timestamp="20200408122400" sorttimestamp="20200408122400" />
+        <Platform Number="1" Changed="No" Parent="1" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="PBRO" time="1123" type="A" station1="Peterborough" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Peterborough" tiploc="PBRO" crs="PBO" />
+        <Destination1 name="London Kings Cross" tiploc="KNGX" crs="KGX" ttarr="1257" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="2">
+            <CallingPoint Name="Stevenage" tiploc="STEVNGE" crs="SVG" ttarr="1229" ttdep="1230" etarr="1229" etdep="1230" type="T" />
+            <CallingPoint Name="Finsbury Park" tiploc="FNPK" crs="FPK" ttarr="1250" ttdep="1251" etarr="1250" etdep="1251" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="2C45" Uid="X52469" RetailID="" TigerID="8">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1233" Arrived="No" timestamp="20200408123300" />
+        <DepartTime time="1234" timestamp="20200408123400" sorttimestamp="20200408123400" />
+        <Platform Number="1" Changed="No" Parent="1" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="CAMBDGE" time="1126" type="A" station1="Cambridge" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" />
+        <Destination1 name="London Kings Cross" tiploc="KNGX" crs="KGX" ttarr="1319" etarr="" />
+        <Via></Via>
+        <Coaches1>8</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="7">
+            <CallingPoint Name="Stevenage" tiploc="STEVNGE" crs="SVG" ttarr="1239" ttdep="1240" etarr="1239" etdep="1240" type="T" />
+            <CallingPoint Name="Knebworth" tiploc="KNEBWTH" crs="KBW" ttarr="1244" ttdep="1244" etarr="1244" etdep="1244" type="T" />
+            <CallingPoint Name="Welwyn North" tiploc="WLWYNN" crs="WLW" ttarr="1247" ttdep="1247" etarr="1247" etdep="1247" type="T" />
+            <CallingPoint Name="Welwyn Garden City" tiploc="WLWYNGC" crs="WGC" ttarr="1251" ttdep="1252" etarr="1251" etdep="1252" type="T" />
+            <CallingPoint Name="Hatfield" tiploc="HATFILD" crs="HAT" ttarr="1256" ttdep="1256" etarr="1256" etdep="1256" type="T" />
+            <CallingPoint Name="Potters Bar" tiploc="POTRSBR" crs="PBR" ttarr="1301" ttdep="1302" etarr="1301" etdep="1302" type="T" />
+            <CallingPoint Name="Finsbury Park" tiploc="FNPK" crs="FPK" ttarr="1312" ttdep="1313" etarr="1312" etdep="1313" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="1P30" Uid="X52106" RetailID="" TigerID="9">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1245" Arrived="No" timestamp="20200408124500" />
+        <DepartTime time="1245" timestamp="20200408124500" sorttimestamp="20200408124500" />
+        <Platform Number="2" Changed="No" Parent="2" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="" time="" type="" station1="" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="London Kings Cross" tiploc="KNGX" crs="KGX" />
+        <Destination1 name="Peterborough" tiploc="PBRO" crs="PBO" ttarr="1329" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="5">
+            <CallingPoint Name="Arlesey" tiploc="ARLSEY" crs="ARL" ttarr="1250" ttdep="1250" etarr="1250" etdep="1250" type="T" />
+            <CallingPoint Name="Biggleswade" tiploc="BIGLSWD" crs="BIW" ttarr="1255" ttdep="1255" etarr="1255" etdep="1255" type="T" />
+            <CallingPoint Name="Sandy" tiploc="SNDY" crs="SDY" ttarr="1259" ttdep="1259" etarr="1259" etdep="1259" type="T" />
+            <CallingPoint Name="St Neots" tiploc="STNEOTS" crs="SNO" ttarr="1306" ttdep="1306" etarr="1306" etdep="1306" type="T" />
+            <CallingPoint Name="Huntingdon" tiploc="HNTNGDN" crs="HUN" ttarr="1313" ttdep="1313" etarr="1313" etdep="1313" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="2C24" Uid="X52437" RetailID="" TigerID="10">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1249" Arrived="No" timestamp="20200408124900" />
+        <DepartTime time="1250" timestamp="20200408125000" sorttimestamp="20200408125000" />
+        <Platform Number="2" Changed="No" Parent="2" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="KNGX" time="1105" type="A" station1="London Kings Cross" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine>Use FRONT 4 coaches for Meldreth</CommentLine>
+        <CommentLine2>FRONT 8 for Shepreth &amp; Foxton</CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="London Kings Cross" tiploc="KNGX" crs="KGX" />
+        <Destination1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" ttarr="1328" etarr="" />
+        <Via></Via>
+        <Coaches1>8</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="7">
+            <CallingPoint Name="Letchworth Garden City" tiploc="LTCE" crs="LET" ttarr="1255" ttdep="1256" etarr="1255" etdep="1256" type="T" />
+            <CallingPoint Name="Baldock" tiploc="BALDOCK" crs="BDK" ttarr="1259" ttdep="1259" etarr="1259" etdep="1259" type="T" />
+            <CallingPoint Name="Ashwell &amp; Morden" tiploc="ASHWELC" crs="AWM" ttarr="1304" ttdep="1304" etarr="1304" etdep="1304" type="T" />
+            <CallingPoint Name="Royston" tiploc="ROYSTON" crs="RYS" ttarr="1308" ttdep="1309" etarr="1308" etdep="1309" type="T" />
+            <CallingPoint Name="Meldreth" tiploc="MELDRTH" crs="MEL" ttarr="1312" ttdep="1312" etarr="1312" etdep="1312" type="T" />
+            <CallingPoint Name="Shepreth" tiploc="SHPRTH" crs="STH" ttarr="1315" ttdep="1315" etarr="1315" etdep="1315" type="T" />
+            <CallingPoint Name="Foxton" tiploc="FOXTON" crs="FXN" ttarr="1317" ttdep="1317" etarr="1317" etdep="1317" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="9S33" Uid="X54274" RetailID="" TigerID="11">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1258" Arrived="No" timestamp="20200408125800" />
+        <DepartTime time="1259" timestamp="20200408125900" sorttimestamp="20200408125900" />
+        <Platform Number="1" Changed="No" Parent="1" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="" time="" type="" station1="" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" />
+        <Destination1 name="Gatwick Airport" tiploc="GTWK" crs="GTW" ttarr="1427" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="10">
+            <CallingPoint Name="Stevenage" tiploc="STEVNGE" crs="SVG" ttarr="1304" ttdep="1305" etarr="1304" etdep="1305" type="T" />
+            <CallingPoint Name="Finsbury Park" tiploc="FNPK" crs="FPK" ttarr="1324" ttdep="1328" etarr="1324" etdep="1328" type="T" />
+            <CallingPoint Name="London St Pancras" tiploc="STPXBOX" crs="SPL" ttarr="1334" ttdep="1335" etarr="1334" etdep="1335" type="T" />
+            <CallingPoint Name="Farringdon" tiploc="FRNDNLT" crs="ZFD" ttarr="1339" ttdep="1339" etarr="1339" etdep="1339" type="T" />
+            <CallingPoint Name="City Thameslink" tiploc="CTMSLNK" crs="CTK" ttarr="1341" ttdep="1341" etarr="1341" etdep="1341" type="T" />
+            <CallingPoint Name="London Blackfriars" tiploc="BLFR" crs="BFR" ttarr="1343" ttdep="1344" etarr="1343" etdep="1344" type="T" />
+            <CallingPoint Name="London Bridge" tiploc="LNDNBDG" crs="LBG" ttarr="1350" ttdep="1351" etarr="1350" etdep="1351" type="T" />
+            <CallingPoint Name="Norwood Junction" tiploc="NORWDJ" crs="NWD" ttarr="1403" ttdep="1403" etarr="1403" etdep="1403" type="T" />
+            <CallingPoint Name="East Croydon" tiploc="ECROYDN" crs="ECR" ttarr="1407" ttdep="1407" etarr="1407" etdep="1407" type="T" />
+            <CallingPoint Name="Redhill" tiploc="REDHILL" crs="RDH" ttarr="1419" ttdep="1419" etarr="1419" etdep="1419" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Service Headcode="9S24" Uid="X54269" RetailID="" TigerID="12">
+        <ServiceType Type="Through" />
+        <ArriveTime time="1312" Arrived="No" timestamp="20200408131200" />
+        <DepartTime time="1313" timestamp="20200408131300" sorttimestamp="20200408131300" />
+        <Platform Number="2" Changed="No" Parent="2" />
+        <SecondaryServiceStatus></SecondaryServiceStatus>
+        <ServiceStatus Status="On time" />
+        <ExpectedDepartTime time="On time" />
+        <ExpectedArriveTime time="On time" />
+        <Delay Minutes="0" />
+        <ExpectedDepartStatus time="On time" />
+        <ExpectedArriveStatus time="On time" />
+        <DelayCause></DelayCause>
+        <LastReport tiploc="" time="" type="" station1="" station2="" />
+        <LastPosition SignalBox="" TDBerth="" />
+        <CommentLine></CommentLine>
+        <CommentLine2></CommentLine2>
+        <ArrivalComment1></ArrivalComment1>
+        <ArrivalComment2></ArrivalComment2>
+        <PlatformComment1></PlatformComment1>
+        <PlatformComment2></PlatformComment2>
+        <DepartureComment1></DepartureComment1>
+        <DepartureComment2></DepartureComment2>
+        <AssociatedPageNotices></AssociatedPageNotices>
+        <ChangeAt> </ChangeAt>
+        <Operator name="Thameslink" code="TL" brand="" />
+        <Origin1 name="Gatwick Airport" tiploc="GTWK" crs="GTW" />
+        <Destination1 name="Cambridge" tiploc="CAMBDGE" crs="CBG" ttarr="1348" etarr="" />
+        <Via></Via>
+        <Coaches1>12</Coaches1>
+        <CoachesList />
+        <Incident />
+        <Dest1CallingPoints NumCallingPoints="3">
+            <CallingPoint Name="Letchworth Garden City" tiploc="LTCE" crs="LET" ttarr="1318" ttdep="1318" etarr="1318" etdep="1318" type="T" />
+            <CallingPoint Name="Baldock" tiploc="BALDOCK" crs="BDK" ttarr="1321" ttdep="1322" etarr="1321" etdep="1322" type="T" />
+            <CallingPoint Name="Royston" tiploc="ROYSTON" crs="RYS" ttarr="1329" ttdep="1330" etarr="1329" etdep="1330" type="T" />
+        </Dest1CallingPoints>
+    </Service>
+    <Incident Summary="" />
+</StationBoard>

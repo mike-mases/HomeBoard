@@ -1,12 +1,12 @@
 using Homeboard.Models.Configuration;
-using Homeboard.WebApp.Services;
+using HomeBoard.WebApp.Installers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WebApp.Installers;
+
 namespace HomeBoard.WebApp
 {
     public class Startup
@@ -23,8 +23,7 @@ namespace HomeBoard.WebApp
         {
             services.AddRazorPages();
             services.Configure<WeatherConfiguration>(Configuration.GetSection("WeatherService"));
-            services.ConfigureWeatherRestClient();
-            services.AddTransient<IWeatherService, WeatherService>();
+            services.ConfigureWeatherService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
