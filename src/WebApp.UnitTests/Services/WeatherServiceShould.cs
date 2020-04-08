@@ -1,20 +1,19 @@
 namespace WebApp.UnitTests.Services
 {
-    using System;
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
     using FluentAssertions;
+    using Homeboard.Models.Configuration;
+    using Homeboard.WebApp.Services;
+    using HomeBoard.Models.Weather;
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Models.Configuration;
-    using Models.Weather;
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
     using RestSharp;
-    using WebApp.Services;
 
     [TestFixture]
     public class WeatherServiceShould

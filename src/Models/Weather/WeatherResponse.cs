@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Models.Weather
+namespace HomeBoard.Models.Weather
 {
     public class WeatherResponse
     {

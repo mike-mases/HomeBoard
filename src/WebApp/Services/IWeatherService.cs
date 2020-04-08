@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Models.Weather;
+using HomeBoard.Models.Weather;
 
-namespace WebApp.Services
+namespace Homeboard.WebApp.Services
 {
     public interface IWeatherService
     {

@@ -1,6 +1,6 @@
+using Homeboard.Models.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Models.Configuration;
 using RestSharp;
 
 namespace WebApp.Installers

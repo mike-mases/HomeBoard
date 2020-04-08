@@ -1,4 +1,4 @@
-namespace Models.Configuration
+namespace Homeboard.Models.Configuration
 {
     public class WeatherConfiguration
     {

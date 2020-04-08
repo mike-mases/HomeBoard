@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Models.Weather
+namespace HomeBoard.Models.Weather
 {
     public class Wind
     {

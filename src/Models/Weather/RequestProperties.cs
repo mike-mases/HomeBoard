@@ -1,4 +1,4 @@
-namespace Models.Weather
+namespace HomeBoard.Models.Weather
 {
     public class RequestProperties
     {

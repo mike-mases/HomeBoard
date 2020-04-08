@@ -1,14 +1,14 @@
 using System;
 using System.Threading.Tasks;
+using Homeboard.Models.Configuration;
+using HomeBoard.Models.Weather;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Models.Configuration;
-using Models.Weather;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace WebApp.Services
+namespace Homeboard.WebApp.Services
 {
     public class WeatherService : IWeatherService
     {
