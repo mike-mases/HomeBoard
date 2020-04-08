@@ -24,7 +24,9 @@ namespace HomeBoard.WebApp.UnitTests.Services
         public void Setup()
         {
             _options = Substitute.For<IOptions<TrainsConfiguration>>();
-            _options.Value.Returns(new TrainsConfiguration());
+            _options.Value.Returns(new TrainsConfiguration{
+                StationId = "testId"
+            });
             _client = Substitute.For<IRestClient>();
             _logger = Substitute.For<ILogger<TrainsService>>();
             _cache = Substitute.For<IMemoryCache>();
@@ -38,6 +40,13 @@ namespace HomeBoard.WebApp.UnitTests.Services
             var result = await _service.GetStationBoard();
 
             result.Should().NotBeNull();
+        }
+
+        [Test]
+        public async Task CallTheTrainFeed()
+        {
+            await _service.GetStationBoard();
+            await _client.Received(1).ExecuteGetAsync(Arg.Is<IRestRequest>(r => r.Resource.Equals("testId.xml")));
         }
     }
 }

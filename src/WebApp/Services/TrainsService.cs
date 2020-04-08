@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using HomeBoard.Models.Configuration;
 using HomeBoard.Models.Trains;
@@ -16,8 +17,8 @@ namespace HomeBoard.WebApp.Services
         private readonly IMemoryCache _cache;
 
         public TrainsService(
-            IOptions<TrainsConfiguration> options, 
-            IRestClient client, 
+            IOptions<TrainsConfiguration> options,
+            IRestClient client,
             ILogger<TrainsService> logger,
             IMemoryCache cache)
         {
@@ -29,7 +30,14 @@ namespace HomeBoard.WebApp.Services
 
         public async Task<StationBoard> GetStationBoard()
         {
+            await _client.ExecuteGetAsync(BuildRequest());
             return new StationBoard();
+        }
+
+        private RestRequest BuildRequest()
+        {
+            var uri = $"{_config.StationId}.xml";
+            return new RestRequest(uri, Method.GET);
         }
     }
 }
