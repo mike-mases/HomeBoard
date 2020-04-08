@@ -7,6 +7,6 @@ namespace HomeBoard.Models.Configuration
         public string BaseUrl { get; set; }
         public string StationId { get; set; }
         public int CacheTimeoutSeconds { get; set; }
-        public IEnumerable<string> Destinations { get; set; }
+        public List<string> Destinations { get; set; }
     }
 }

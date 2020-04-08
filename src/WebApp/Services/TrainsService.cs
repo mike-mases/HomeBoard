@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using System.IO;
 using System.Runtime.Intrinsics.X86;
@@ -40,7 +41,22 @@ namespace HomeBoard.WebApp.Services
         private StationBoard DeserialiseStationBoard(string content){
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             var deserializer = new XmlSerializer(typeof(StationBoard));
-            return deserializer.Deserialize(stream) as StationBoard;
+            var board = deserializer.Deserialize(stream) as StationBoard;
+            FilterTrains(board);
+            return board;
+        }
+
+        private void FilterTrains(StationBoard board){
+            var endStations = _config.Destinations;
+
+            if (!endStations.Any()){
+                return;
+            }
+
+            board.Services = board.Services.Where(
+                s => endStations.Contains(s.EndStation.Crs) ||
+                endStations.Intersect(s.EndStationCallingPoints.CallingPoint.Select(c => c.Crs)).Any())
+                .ToList();
         }
 
         private RestRequest BuildRequest()

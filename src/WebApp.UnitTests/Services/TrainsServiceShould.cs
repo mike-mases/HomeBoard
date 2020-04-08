@@ -12,31 +12,34 @@ using Microsoft.Extensions.Caching.Memory;
 using HomeBoard.Models.Trains;
 using System.Xml.Serialization;
 using System.Net;
+using System.Collections.Generic;
 
 namespace HomeBoard.WebApp.UnitTests.Services
 {
     [TestFixture]
     public class TrainsServiceShould
     {
-        private IOptions<TrainsConfiguration> _options;
         private IRestClient _client;
         private ILogger<TrainsService> _logger;
         private TrainsService _service;
         private IMemoryCache _cache;
+        private TrainsConfiguration _config;
 
         [SetUp]
         public void Setup()
         {
-            _options = Substitute.For<IOptions<TrainsConfiguration>>();
-            _options.Value.Returns(new TrainsConfiguration
+            var options = Substitute.For<IOptions<TrainsConfiguration>>();
+            _config = new TrainsConfiguration
             {
-                StationId = "testId"
-            });
+                StationId = "testId",
+                Destinations = new List<string>()
+            };
+            options.Value.Returns(_config);
             _client = Substitute.For<IRestClient>();
             _logger = Substitute.For<ILogger<TrainsService>>();
             _cache = Substitute.For<IMemoryCache>();
 
-            _service = new TrainsService(_options, _client, _logger, _cache);
+            _service = new TrainsService(options, _client, _logger, _cache);
 
             var content = GetTestDataStream("trains-feed-response.xml").ReadToEnd();
             _client.ExecuteGetAsync(Arg.Any<RestRequest>()).Returns(
@@ -70,6 +73,36 @@ namespace HomeBoard.WebApp.UnitTests.Services
             var result = await _service.GetStationBoard();
 
             result.Should().BeEquivalentTo(expected);
+        }
+
+        [Test]
+        public async Task FiltersOnDestinationStation()
+        {
+            _config.Destinations.Add("KGX");
+
+            var result = await _service.GetStationBoard();
+
+            result.Services.Should().HaveCount(4);
+        }
+
+        [Test]
+        public async Task FiltersOnCallingAtStation()
+        {
+            _config.Destinations.Add("SPL");
+
+            var result = await _service.GetStationBoard();
+
+            result.Services.Should().HaveCount(2);
+        }
+
+        [Test]
+        public async Task FiltersOnBothCallingAtAndEndStation()
+        {
+            _config.Destinations.AddRange(new List<string> { "SPL", "KGX" });
+
+            var result = await _service.GetStationBoard();
+
+            result.Services.Should().HaveCount(6);
         }
 
         private StreamReader GetTestDataStream(string fileName)

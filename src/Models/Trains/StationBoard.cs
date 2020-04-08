@@ -9,7 +9,7 @@ namespace HomeBoard.Models.Trains
 		[XmlElement(ElementName="TridentId")]
 		public string TridentId { get; set; }
 		[XmlElement(ElementName="Service")]
-		public List<Service> Service { get; set; }
+		public List<Service> Services { get; set; }
 		[XmlElement(ElementName="Incident")]
 		public Incident Incident { get; set; }
 		[XmlAttribute(AttributeName="name")]
