@@ -161,14 +161,11 @@ namespace WebApp.UnitTests.Services
             _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
             var result = await _service.GetCurrentWeather();
 
-            // _logger.Received(1).Log(Arg.Is(LogLevel.Error), Arg.Is("Call to service failed for lat: 2.1, lon: 4.2, units: metric, key: testkey, uri: testuri"));
-            _logger.Received(1).Log<object>(
-            LogLevel.Error,
-            Arg.Any<EventId>(),
-            Arg.Any<object>(),
-            null,
-            Arg.Any<Func<object, Exception, string>>()
-            );
+            foreach (var c in _logger.ReceivedCalls()) {
+                System.Console.WriteLine(c.GetMethodInfo());
+            }
+
+            _logger.Received(1).LogError(null, "Call to service failed for lat: 2.1, lon: 4.2, units: metric, key: testkey, uri: testuri");
         }
 
         private string GetTestDataText(string fileName)
