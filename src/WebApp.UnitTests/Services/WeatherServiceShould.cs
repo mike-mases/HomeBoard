@@ -159,13 +159,24 @@ namespace WebApp.UnitTests.Services
         public async Task LogUnsuccessfulRequests()
         {
             _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
-            var result = await _service.GetCurrentWeather();
-
-            foreach (var c in _logger.ReceivedCalls()) {
-                System.Console.WriteLine(c.GetMethodInfo());
-            }
+            await _service.GetCurrentWeather();
 
             _logger.Received(1).LogError(null, "Call to service failed for lat: 2.1, lon: 4.2, units: metric, key: testkey, uri: testuri");
+        }
+
+        [Test]
+        public async Task LogMalformedJson()
+        {
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs
+            (new RestResponse
+            {
+                Content = "{malformedjson",
+                StatusCode = HttpStatusCode.OK,
+                ResponseStatus = ResponseStatus.Completed
+            });
+            await _service.GetCurrentWeather();
+
+            _logger.Received(1).LogError(Arg.Any<JsonReaderException>(), "Weather service JSON deserialise failure.");
         }
 
         private string GetTestDataText(string fileName)

@@ -61,8 +61,9 @@ namespace WebApp.Services
             {
                 return JsonConvert.DeserializeObject<WeatherResponse>(jsonString);
             }
-            catch (JsonReaderException)
+            catch (JsonReaderException e)
             {
+                _logger.LogError(e, "Weather service JSON deserialise failure.");
                 return new WeatherResponse();
             }
         }
