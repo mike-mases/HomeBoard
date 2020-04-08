@@ -1,6 +1,3 @@
-using Microsoft.Win32;
-using Homeboard.WebApp.Services;
-using HomeBoard.Models.Confguration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
@@ -8,8 +5,11 @@ using NUnit.Framework;
 using RestSharp;
 using FluentAssertions;
 using System.Threading.Tasks;
+using HomeBoard.Models.Configuration;
+using HomeBoard.WebApp.Services;
+using Microsoft.Extensions.Caching.Memory;
 
-namespace Homeboard.WebApp.UnitTests.Services
+namespace HomeBoard.WebApp.UnitTests.Services
 {
     [TestFixture]
     public class TrainsServiceShould
@@ -18,6 +18,7 @@ namespace Homeboard.WebApp.UnitTests.Services
         private IRestClient _client;
         private ILogger<TrainsService> _logger;
         private TrainsService _service;
+        private IMemoryCache _cache;
 
         [SetUp]
         public void Setup()
@@ -26,8 +27,9 @@ namespace Homeboard.WebApp.UnitTests.Services
             _options.Value.Returns(new TrainsConfiguration());
             _client = Substitute.For<IRestClient>();
             _logger = Substitute.For<ILogger<TrainsService>>();
+            _cache = Substitute.For<IMemoryCache>();
 
-            _service = new TrainsService(_options, _client, _logger);
+            _service = new TrainsService(_options, _client, _logger, _cache);
         }
 
         [Test]

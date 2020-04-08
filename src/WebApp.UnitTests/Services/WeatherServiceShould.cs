@@ -1,12 +1,12 @@
-namespace WebApp.UnitTests.Services
+namespace HomeBoard.WebApp.UnitTests.Services
 {
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
     using FluentAssertions;
-    using Homeboard.Models.Configuration;
-    using Homeboard.WebApp.Services;
+    using HomeBoard.Models.Configuration;
     using HomeBoard.Models.Weather;
+    using HomeBoard.WebApp.Services;
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;

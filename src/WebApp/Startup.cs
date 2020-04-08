@@ -1,4 +1,3 @@
-using Homeboard.Models.Configuration;
 using HomeBoard.WebApp.Installers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,8 +21,8 @@ namespace HomeBoard.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.Configure<WeatherConfiguration>(Configuration.GetSection("WeatherService"));
-            services.ConfigureWeatherService();
+            services.ConfigureWeatherService(Configuration);
+            services.ConfigureTrainsService(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

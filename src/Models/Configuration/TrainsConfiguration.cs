@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HomeBoard.Models.Confguration
+namespace HomeBoard.Models.Configuration
 {
     public class TrainsConfiguration
     {
