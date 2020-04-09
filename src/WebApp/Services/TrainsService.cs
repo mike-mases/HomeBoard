@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using HomeBoard.Models.Configuration;
