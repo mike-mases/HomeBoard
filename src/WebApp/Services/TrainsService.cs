@@ -51,6 +51,7 @@ namespace HomeBoard.WebApp.Services
 
             if (!result.IsSuccessful)
             {
+                _logger.LogError($"Call to XML feed failed for station ID: {_config.StationId}");
                 return new StationBoard();
             }
 
@@ -67,8 +68,9 @@ namespace HomeBoard.WebApp.Services
                 FilterTrains(board);
                 return board;
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException e)
             {
+                _logger.LogError(e, "Trains Service XML deserialise failure.");
                 return new StationBoard();
             }
         }

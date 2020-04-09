@@ -142,6 +142,30 @@ namespace HomeBoard.WebApp.UnitTests.Services
             await _client.ReceivedWithAnyArgs(0).ExecuteGetAsync(Arg.Any<IRestRequest>());
         }
 
+        [Test]
+        public async Task LogUnsuccessfulRequests(){
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
+
+            await _service.GetStationBoard();
+
+            _logger.Received(1).LogError(null, "Call to XML feed failed for station ID: testId");
+        }
+
+        [Test]
+        public async Task LogMalformedXml(){
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs
+            (new RestResponse
+            {
+                Content = "notxml",
+                StatusCode = HttpStatusCode.OK,
+                ResponseStatus = ResponseStatus.Completed
+            });
+
+            await _service.GetStationBoard();
+
+            _logger.Received(1).LogError(Arg.Any<InvalidOperationException>(), "Trains Service XML deserialise failure.");
+        }
+
         private StreamReader GetTestDataStream(string fileName)
         {
             return new StreamReader($"./TestData/{fileName}");
