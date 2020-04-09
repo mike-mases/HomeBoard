@@ -14,17 +14,17 @@ namespace HomeBoard.WebApp.Services
     {
         private const string CacheKey = "CurrentWeather";
         private readonly IRestClient _client;
-        private readonly IOptions<WeatherConfiguration> _config;
+        private readonly WeatherConfiguration _config;
         private readonly IMemoryCache _cache;
         private readonly ILogger<WeatherService> _logger;
 
         public WeatherService(
-            IRestClient client, 
-            IOptions<WeatherConfiguration> config, 
+            IRestClient client,
+            IOptions<WeatherConfiguration> config,
             IMemoryCache cache,
             ILogger<WeatherService> logger)
         {
-            _config = config;
+            _config = config.Value;
             _client = client;
             _cache = cache;
             _logger = logger;
@@ -34,7 +34,7 @@ namespace HomeBoard.WebApp.Services
         {
             var content = await _cache.GetOrCreateAsync(CacheKey, entry =>
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_config.Value.CacheTimeoutSeconds);
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_config.CacheTimeoutSeconds);
                 return GetFromWeatherService();
             });
 
@@ -47,8 +47,12 @@ namespace HomeBoard.WebApp.Services
 
             if (!response.IsSuccessful)
             {
-                var details = _config.Value;
-                _logger.LogError($"Call to service failed for lat: {details.Latitude}, lon: {details.Longitude}, units: {details.Units}, key: {details.ApiKey}, uri: {details.ActionUri}");
+                _logger.LogError($"Call to service failed for " +
+                                $"lat: {_config.Latitude}, " +
+                                $"lon: {_config.Longitude}, " +
+                                $"units: {_config.Units}, " +
+                                $"key: {_config.ApiKey}, " +
+                                $"uri: {_config.ActionUri}");
                 return new WeatherResponse();
             }
 
@@ -70,12 +74,11 @@ namespace HomeBoard.WebApp.Services
 
         private RestRequest BuildRequest()
         {
-            var parameters = _config.Value;
-            var request = new RestRequest(parameters.ActionUri, Method.GET);
-            request.AddQueryParameter("lat", parameters.Latitude.ToString());
-            request.AddQueryParameter("lon", parameters.Longitude.ToString());
-            request.AddQueryParameter("units", parameters.Units);
-            request.AddQueryParameter("appid", parameters.ApiKey);
+            var request = new RestRequest(_config.ActionUri, Method.GET);
+            request.AddQueryParameter("lat", _config.Latitude.ToString());
+            request.AddQueryParameter("lon", _config.Longitude.ToString());
+            request.AddQueryParameter("units", _config.Units);
+            request.AddQueryParameter("appid", _config.ApiKey);
 
             return request;
         }
