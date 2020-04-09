@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Intrinsics.X86;
 using System.IO;
 using Microsoft.Extensions.Logging;
@@ -110,10 +111,24 @@ namespace HomeBoard.WebApp.UnitTests.Services
         public async Task HandleUnsuccessfulTrainsRequest()
         {
             _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
-            
+
             var result = await _service.GetStationBoard();
 
             result.Should().BeEquivalentTo(new StationBoard());
+        }
+
+        [Test]
+        public async Task HandleMalformedXml()
+        {
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs
+            (new RestResponse
+            {
+                Content = "notxml",
+                StatusCode = HttpStatusCode.OK,
+                ResponseStatus = ResponseStatus.Completed
+            });
+
+            await _service.Invoking(s => s.GetStationBoard()).Should().NotThrowAsync<InvalidOperationException>();
         }
 
         private StreamReader GetTestDataStream(string fileName)

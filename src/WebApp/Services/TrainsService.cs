@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -36,25 +37,36 @@ namespace HomeBoard.WebApp.Services
         {
             var result = await _client.ExecuteGetAsync(BuildRequest());
 
-            if (!result.IsSuccessful){
+            if (!result.IsSuccessful)
+            {
                 return new StationBoard();
             }
 
             return DeserialiseStationBoard(result.Content);
         }
 
-        private StationBoard DeserialiseStationBoard(string content){
-            var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            var deserializer = new XmlSerializer(typeof(StationBoard));
-            var board = deserializer.Deserialize(stream) as StationBoard;
-            FilterTrains(board);
-            return board;
+        private StationBoard DeserialiseStationBoard(string content)
+        {
+            try
+            {
+                var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+                var deserializer = new XmlSerializer(typeof(StationBoard));
+                var board = deserializer.Deserialize(stream) as StationBoard;
+                FilterTrains(board);
+                return board;
+            }
+            catch (InvalidOperationException)
+            {
+                return new StationBoard();
+            }
         }
 
-        private void FilterTrains(StationBoard board){
+        private void FilterTrains(StationBoard board)
+        {
             var endStations = _config.Destinations;
 
-            if (!endStations.Any()){
+            if (!endStations.Any())
+            {
                 return;
             }
 
