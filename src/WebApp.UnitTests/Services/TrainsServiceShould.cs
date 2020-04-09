@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Intrinsics.X86;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -129,6 +128,18 @@ namespace HomeBoard.WebApp.UnitTests.Services
             });
 
             await _service.Invoking(s => s.GetStationBoard()).Should().NotThrowAsync<InvalidOperationException>();
+        }
+
+        [Test]
+        public async Task NotCallTrainsFeedWithCacheHit(){
+            _cache.TryGetValue("StationBoard", out _).Returns(true).AndDoes(x =>
+            {
+                x[1] = new StationBoard();
+            });
+
+            await _service.GetStationBoard();
+
+            await _client.ReceivedWithAnyArgs(0).ExecuteGetAsync(Arg.Any<IRestRequest>());
         }
 
         private StreamReader GetTestDataStream(string fileName)

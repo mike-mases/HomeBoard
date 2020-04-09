@@ -16,6 +16,7 @@ namespace HomeBoard.WebApp.Services
 {
     public class TrainsService : ITrainsService
     {
+        private const string CacheKey = "StationBoard";
         private readonly TrainsConfiguration _config;
         private readonly IRestClient _client;
         private readonly ILogger _logger;
@@ -34,6 +35,17 @@ namespace HomeBoard.WebApp.Services
         }
 
         public async Task<StationBoard> GetStationBoard()
+        {
+            var content = await _cache.GetOrCreateAsync(CacheKey, entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_config.CacheTimeoutSeconds);
+                return GetStationBoardFromService();
+            });
+
+            return content;
+        }
+
+        private async Task<StationBoard> GetStationBoardFromService()
         {
             var result = await _client.ExecuteGetAsync(BuildRequest());
 
