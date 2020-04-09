@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -103,6 +104,16 @@ namespace HomeBoard.WebApp.UnitTests.Services
             var result = await _service.GetStationBoard();
 
             result.Services.Should().HaveCount(6);
+        }
+
+        [Test]
+        public async Task HandleUnsuccessfulTrainsRequest()
+        {
+            _client.ExecuteGetAsync(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(new RestResponse { StatusCode = HttpStatusCode.InternalServerError });
+            
+            var result = await _service.GetStationBoard();
+
+            result.Should().BeEquivalentTo(new StationBoard());
         }
 
         private StreamReader GetTestDataStream(string fileName)

@@ -35,6 +35,11 @@ namespace HomeBoard.WebApp.Services
         public async Task<StationBoard> GetStationBoard()
         {
             var result = await _client.ExecuteGetAsync(BuildRequest());
+
+            if (!result.IsSuccessful){
+                return new StationBoard();
+            }
+
             return DeserialiseStationBoard(result.Content);
         }
 
