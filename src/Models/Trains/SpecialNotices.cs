@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace HomeBoard.Models.Trains
@@ -6,6 +7,6 @@ namespace HomeBoard.Models.Trains
     public class SpecialNotices
     {
         [XmlElement(ElementName = "SpecialNotice")]
-        public SpecialNotice SpecialNotice { get; set; }
+        public List<SpecialNotice> SpecialNotice { get; set; }
     }
 }
