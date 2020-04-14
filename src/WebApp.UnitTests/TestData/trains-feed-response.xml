@@ -490,4 +490,7 @@
         </Dest1CallingPoints>
     </Service>
     <Incident Summary="" />
+    <SpecialNotices>
+        <SpecialNotice type="interleave">Due to a points failure between West Ealing and Greenford all lines are blocked. Train services running to and from these stations will be cancelled. Disruption is expected until 14:30 14/04.</SpecialNotice>
+    </SpecialNotices>
 </StationBoard>

@@ -22,6 +22,8 @@ namespace HomeBoard.Models.Trains
 		public string PlatformData { get; set; }
 		[XmlAttribute(AttributeName="Timestamp")]
 		public string Timestamp { get; set; }
+		[XmlElement(ElementName="SpecialNotices")]
+		public SpecialNotices SpecialNotices { get; set; }
 	}
 
 }
