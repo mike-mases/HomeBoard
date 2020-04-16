@@ -40,11 +40,24 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             result.Weather.LastUpdated.Should().Be("Wednesday April 15, 2020 - 9:01:49 AM");
         }
 
+        [Test]
+        public async Task PopulateTemperatureField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.Temperature.Should().Be(25.32);
+        }
+
         private void CreateWeatherResponse()
         {
             _weatherService.GetCurrentWeather().Returns(
-                new WeatherResponse{
-                    Time = 1586937709
+                new WeatherResponse
+                {
+                    Time = 1586937709,
+                    Values = new WeatherValues
+                    {
+                        Temperature = 25.32
+                    }
                 }
             );
         }

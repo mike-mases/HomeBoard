@@ -17,7 +17,8 @@ namespace HomeBoard.WebApp.Builders
 
         public async Task<HomeBoardViewModel> BuildViewModel()
         {
-            return new HomeBoardViewModel{
+            return new HomeBoardViewModel
+            {
                 Weather = await GetWeatherData()
             };
         }
@@ -25,8 +26,11 @@ namespace HomeBoard.WebApp.Builders
         private async Task<WeatherViewModel> GetWeatherData()
         {
             var weather = await _weatherService.GetCurrentWeather();
-            var viewModel = new WeatherViewModel();
-            viewModel.LastUpdated = weather.LocalTime.ToString("dddd MMMM dd, yyyy - h:mm:ss tt");
+            var viewModel = new WeatherViewModel
+            {
+                LastUpdated = weather.LocalTime.ToString("dddd MMMM dd, yyyy - h:mm:ss tt"),
+                Temperature = weather.Values.Temperature
+            };
 
             return viewModel;
         }

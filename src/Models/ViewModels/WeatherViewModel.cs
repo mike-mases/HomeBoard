@@ -4,6 +4,9 @@ namespace HomeBoard.Models
     {
         public string LastUpdated { get; set; }
         public double Temperature { get; set; }
+        public double FeelsLike { get; set; }
+        public double MinTemp { get; set; }
+        public double MaxTemp { get; set; }
         public string CityName { get; set; }
         public string Description { get; set; }
     }
