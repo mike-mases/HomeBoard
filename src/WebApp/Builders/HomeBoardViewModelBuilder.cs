@@ -29,7 +29,10 @@ namespace HomeBoard.WebApp.Builders
             var viewModel = new WeatherViewModel
             {
                 LastUpdated = weather.LocalTime.ToString("dddd MMMM dd, yyyy - h:mm:ss tt"),
-                Temperature = weather.Values.Temperature
+                Temperature = weather.Values.Temperature,
+                FeelsLike = weather.Values.FeelsLike,
+                MaxTemp = weather.Values.MaxTemp,
+                MinTemp = weather.Values.MinTemp,
             };
 
             return viewModel;

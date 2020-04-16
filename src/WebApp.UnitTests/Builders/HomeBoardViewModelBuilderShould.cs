@@ -48,6 +48,30 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             result.Weather.Temperature.Should().Be(25.32);
         }
 
+        [Test]
+        public async Task PopulateFeelsLikeField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.FeelsLike.Should().Be(23.1);
+        }
+
+        [Test]
+        public async Task PopulateMaxTempField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.MaxTemp.Should().Be(27.54);
+        }
+
+        [Test]
+        public async Task PopulateMinTempField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.MinTemp.Should().Be(10.34);
+        }
+
         private void CreateWeatherResponse()
         {
             _weatherService.GetCurrentWeather().Returns(
@@ -56,7 +80,10 @@ namespace HomeBoard.WebApp.UnitTests.Builders
                     Time = 1586937709,
                     Values = new WeatherValues
                     {
-                        Temperature = 25.32
+                        Temperature = 25.32,
+                        FeelsLike = 23.1,
+                        MaxTemp = 27.54,
+                        MinTemp = 10.34
                     }
                 }
             );
