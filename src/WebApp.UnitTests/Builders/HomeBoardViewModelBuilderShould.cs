@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
+using HomeBoard.Models.Trains;
 using HomeBoard.Models.Weather;
 using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Services;
@@ -23,6 +24,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             _trainsService = Substitute.For<ITrainsService>();
             _builder = new HomeBoardViewModelBuilder(_weatherService, _trainsService);
             CreateWeatherResponse();
+            CreateStationBoard();
         }
 
         [Test]
@@ -96,6 +98,24 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             var result = await _builder.BuildViewModel();
 
             result.Weather.Description.Should().BeNull();
+        }
+
+        [Test]
+        public async Task PopulateTrainsLastUpdatedField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Trains.LastUpdated.Should().Be("Thursday April 16, 2020 - 1:43:05 PM");
+        }
+
+        private void CreateStationBoard()
+        {
+            _trainsService.GetStationBoard().Returns(
+                new StationBoard
+                {
+                    Timestamp = "16/04/2020 13:43:05"
+                }
+            );
         }
 
         private void CreateWeatherResponse()

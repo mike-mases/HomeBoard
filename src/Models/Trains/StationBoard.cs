@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
@@ -24,6 +25,11 @@ namespace HomeBoard.Models.Trains
 		public string Timestamp { get; set; }
 		[XmlElement(ElementName="SpecialNotices")]
 		public SpecialNotices SpecialNotices { get; set; }
-	}
 
+		public DateTime TimestampParsed {
+			get {
+				return Timestamp != null ? DateTime.ParseExact(Timestamp, "dd/MM/yyyy HH:mm:ss", null) : DateTime.MinValue;
+			}
+		}
+	}
 }

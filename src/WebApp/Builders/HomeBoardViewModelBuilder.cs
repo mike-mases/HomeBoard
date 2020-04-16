@@ -7,6 +7,7 @@ namespace HomeBoard.WebApp.Builders
 {
     public class HomeBoardViewModelBuilder
     {
+        private const string TimeFormat = "dddd MMMM dd, yyyy - h:mm:ss tt";
         private readonly IWeatherService _weatherService;
         private readonly ITrainsService _trainsService;
 
@@ -20,7 +21,8 @@ namespace HomeBoard.WebApp.Builders
         {
             return new HomeBoardViewModel
             {
-                Weather = await GetWeatherData()
+                Weather = await GetWeatherData(),
+                Trains = await GetTrainsData()
             };
         }
 
@@ -29,13 +31,24 @@ namespace HomeBoard.WebApp.Builders
             var weather = await _weatherService.GetCurrentWeather();
             var viewModel = new WeatherViewModel
             {
-                LastUpdated = weather.LocalTime.ToString("dddd MMMM dd, yyyy - h:mm:ss tt"),
+                LastUpdated = weather.LocalTime.ToString(TimeFormat),
                 Temperature = weather.Values.Temperature,
                 FeelsLike = weather.Values.FeelsLike,
                 MaxTemp = weather.Values.MaxTemp,
                 MinTemp = weather.Values.MinTemp,
                 CityName = weather.CityName,
                 Description = weather.WeatherStats.FirstOrDefault()?.Description
+            };
+
+            return viewModel;
+        }
+
+        private async Task<TrainsViewModel> GetTrainsData()
+        {
+            var trains = await _trainsService.GetStationBoard();
+            var viewModel = new TrainsViewModel
+            {
+                LastUpdated = trains.TimestampParsed.ToString(TimeFormat)
             };
 
             return viewModel;
