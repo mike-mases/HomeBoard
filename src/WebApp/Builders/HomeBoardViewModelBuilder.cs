@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using HomeBoard.Models;
 using HomeBoard.WebApp.Services;
@@ -33,6 +34,8 @@ namespace HomeBoard.WebApp.Builders
                 FeelsLike = weather.Values.FeelsLike,
                 MaxTemp = weather.Values.MaxTemp,
                 MinTemp = weather.Values.MinTemp,
+                CityName = weather.CityName,
+                Description = weather.WeatherStats.FirstOrDefault()?.Description
             };
 
             return viewModel;

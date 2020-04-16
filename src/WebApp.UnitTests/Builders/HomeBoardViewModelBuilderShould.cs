@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HomeBoard.Models.Weather;
@@ -72,6 +73,31 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             result.Weather.MinTemp.Should().Be(10.34);
         }
 
+        [Test]
+        public async Task PopulateCityNameField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.CityName.Should().Be("Testville");
+        }
+
+        [Test]
+        public async Task PopulateDescriptionFromFirstEntry()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.Description.Should().Be("Perfect Weather");
+        }
+
+        [Test]
+        public async Task HandleNoDescriptionEntries()
+        {
+            CreateWeatherResponseWithoutStats();
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.Description.Should().BeNull();
+        }
+
         private void CreateWeatherResponse()
         {
             _weatherService.GetCurrentWeather().Returns(
@@ -84,7 +110,32 @@ namespace HomeBoard.WebApp.UnitTests.Builders
                         FeelsLike = 23.1,
                         MaxTemp = 27.54,
                         MinTemp = 10.34
-                    }
+                    },
+                    WeatherStats = new List<WeatherStatistics>
+                    {
+                        new WeatherStatistics{ Description = "Perfect Weather" },
+                        new WeatherStatistics{ Description = "Terrible Weather"}
+                    },
+                    CityName = "Testville"
+                }
+            );
+        }
+
+        private void CreateWeatherResponseWithoutStats()
+        {
+            _weatherService.GetCurrentWeather().Returns(
+                new WeatherResponse
+                {
+                    Time = 1586937709,
+                    Values = new WeatherValues
+                    {
+                        Temperature = 25.32,
+                        FeelsLike = 23.1,
+                        MaxTemp = 27.54,
+                        MinTemp = 10.34
+                    },
+                    WeatherStats = new List<WeatherStatistics>(),
+                    CityName = "Testville"
                 }
             );
         }
