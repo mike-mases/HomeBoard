@@ -62,7 +62,8 @@ namespace HomeBoard.WebApp.Builders
         {
             return services.Select(s => new ServiceViewModel{
                 Time = FormatStationTimestamp(s.DepartTime.Timestamp),
-                Destination = s.EndStation.Name
+                Destination = s.EndStation.Name,
+                Expected = s.ExpectedDepartStatus.Time
             });
         }
 

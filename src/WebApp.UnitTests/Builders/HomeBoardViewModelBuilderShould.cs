@@ -146,6 +146,18 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             service.Destination.Should().Be("Action City");
         }
 
+        [Test]
+        public async Task AddExpectedField()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Expected.Should().Be("On Time");
+        }
+
         private T ReadTestData<T>(string fileName){
             var jsonString = File.ReadAllText($"./TestData/ViewModel/{fileName}.json");
             return JsonConvert.DeserializeObject<T>(jsonString);
