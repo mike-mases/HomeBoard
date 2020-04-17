@@ -61,7 +61,8 @@ namespace HomeBoard.WebApp.Builders
         private IEnumerable<ServiceViewModel> AddServices(List<Service> services)
         {
             return services.Select(s => new ServiceViewModel{
-                Time = FormatStationTimestamp(s.DepartTime.Timestamp)
+                Time = FormatStationTimestamp(s.DepartTime.Timestamp),
+                Destination = s.EndStation.Name
             });
         }
 
