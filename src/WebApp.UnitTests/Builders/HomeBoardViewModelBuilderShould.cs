@@ -158,6 +158,18 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             service.Expected.Should().Be("On Time");
         }
 
+        [Test]
+        public async Task AddPlatformField()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Platform.Should().Be("2");
+        }
+
         private T ReadTestData<T>(string fileName){
             var jsonString = File.ReadAllText($"./TestData/ViewModel/{fileName}.json");
             return JsonConvert.DeserializeObject<T>(jsonString);
