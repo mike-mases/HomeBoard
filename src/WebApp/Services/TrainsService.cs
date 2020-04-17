@@ -85,7 +85,7 @@ namespace HomeBoard.WebApp.Services
 
             board.Services = board.Services.Where(
                 s => endStations.Contains(s.EndStation.Crs) ||
-                endStations.Intersect(s.EndStationCallingPoints.CallingPoint.Select(c => c.Crs)).Any())
+                endStations.Intersect(s.EndStationCallingPoints.CallingPoints.Select(c => c.Crs)).Any())
                 .ToList();
         }
 

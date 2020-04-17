@@ -1,0 +1,19 @@
+{
+    "LastUpdated": "Thursday April 16, 2020 - 1:30:00 PM",
+    "Services": [
+        {
+            "Time": "13:30",
+            "Destination": "Action City",
+            "CallingAt": [
+                "Thoughtsville 13:30 (Exp. 13:34)"
+            ],
+            "LastReport": "Between Station One and Station Two (13:15)",
+            "Expected": "On Time",
+            "Platform": "2",
+            "Coaches": 8
+        }
+    ],
+    "SpecialAnnouncements": [
+        "Sample notice"
+    ]
+}

@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeBoard.Models;
+using HomeBoard.Models.Trains;
 using HomeBoard.WebApp.Services;
 
 namespace HomeBoard.WebApp.Builders
@@ -48,10 +51,23 @@ namespace HomeBoard.WebApp.Builders
             var trains = await _trainsService.GetStationBoard();
             var viewModel = new TrainsViewModel
             {
-                LastUpdated = trains.TimestampParsed.ToString(TimeFormat)
+                LastUpdated = trains.TimestampParsed.ToString(TimeFormat),
+                Services = AddServices(trains.Services)
             };
 
             return viewModel;
+        }
+
+        private IEnumerable<ServiceViewModel> AddServices(List<Service> services)
+        {
+            return services.Select(s => new ServiceViewModel{
+                Time = FormatStationTimestamp(s.DepartTime.Timestamp)
+            });
+        }
+
+        private string FormatStationTimestamp(string inputTime){
+            var parsedDate = DateTime.ParseExact(inputTime, "yyyyMMddHHmmss", null);
+            return parsedDate.ToString("HH:mm");
         }
     }
 }

@@ -1,10 +1,13 @@
+using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HomeBoard.Models.Trains;
 using HomeBoard.Models.Weather;
 using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Services;
+using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -108,12 +111,44 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             result.Trains.LastUpdated.Should().Be("Thursday April 16, 2020 - 1:43:05 PM");
         }
 
-        private void CreateStationBoard()
+        [Test]
+        public async Task AddTrainServiceToViewModel()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+
+            result.Trains.Services.Should().HaveCount(1);
+        }
+
+        [Test]
+        public async Task AddTimeField()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Time.Should().Be("13:30");
+        }
+
+        private T ReadTestData<T>(string fileName){
+            var jsonString = File.ReadAllText($"./TestData/ViewModel/{fileName}.json");
+            return JsonConvert.DeserializeObject<T>(jsonString);
+        }
+
+        private void CreateStationBoard(List<Service> services = null, List<SpecialNotice> notices = null)
         {
             _trainsService.GetStationBoard().Returns(
                 new StationBoard
                 {
-                    Timestamp = "16/04/2020 13:43:05"
+                    Timestamp = "16/04/2020 13:43:05",
+                    Services = services != null? services : new List<Service>(),
+                    SpecialNotices = new SpecialNotices {
+                        Notices = notices != null ? notices : new List<SpecialNotice>()
+                    }
                 }
             );
         }

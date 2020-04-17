@@ -7,6 +7,6 @@ namespace HomeBoard.Models.Trains
     public class SpecialNotices
     {
         [XmlElement(ElementName = "SpecialNotice")]
-        public List<SpecialNotice> SpecialNotice { get; set; }
+        public List<SpecialNotice> Notices { get; set; }
     }
 }
