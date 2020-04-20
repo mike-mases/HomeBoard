@@ -1,0 +1,40 @@
+{
+    "Services": [
+        {
+            "DepartTime": {
+                "Timestamp": "20200416133000"
+            },
+            "EndStation": {
+                "Name": "Action City"
+            },
+            "EndStationCallingPoints": {
+                "CallingPoints": [
+                    {
+                        "Name": "Thoughtsville",
+                        "TimetableDepart": "1330",
+                        "EstimatedDepart": "1334"
+                    }
+                ]
+            },
+            "LastReport": {
+                "Time": "",
+                "OriginStation": "Waitington",
+                "DestinationStation": ""
+            },
+            "ExpectedDepartStatus": {
+                "Time": "On Time"
+            },
+            "Platform": {
+                "Number": "2"
+            },
+            "CoachesCount": 8
+        }
+    ],
+    "SpecialNotices": {
+        "Notices": [
+            {
+                "Text": "Sample notice"
+            }
+        ]
+    }
+}

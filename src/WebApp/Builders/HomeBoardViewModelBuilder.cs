@@ -9,7 +9,8 @@ using HomeBoard.WebApp.Services;
 
 namespace HomeBoard.WebApp.Builders
 {
-    public class HomeBoardViewModelBuilder
+
+    public class HomeBoardViewModelBuilder : IHomeBoardViewModelBuilder
     {
         private const string TimeFormat = "dddd MMMM dd, yyyy - h:mm:ss tt";
         private readonly IWeatherService _weatherService;
@@ -87,6 +88,10 @@ namespace HomeBoard.WebApp.Builders
         {
             var time = FormatTimestampWithoutDate(report.Time);
 
+            if (string.IsNullOrEmpty(report.OriginStation)){
+                return "Train location unknown";
+            }
+
             if (string.IsNullOrEmpty(report.DestinationStation))
             {
                 return $"Currently at {report.OriginStation} ({time})";
@@ -103,7 +108,14 @@ namespace HomeBoard.WebApp.Builders
 
         private string FormatTimestampWithoutDate(string inputTime)
         {
-            var parsedDate = DateTime.ParseExact(inputTime, "HHmm", CultureInfo.InvariantCulture);
+            DateTime parsedDate;
+            var success = DateTime.TryParseExact(inputTime, "HHmm", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate);
+
+            if (!success)
+            {
+                return string.Empty;
+            }
+
             return parsedDate.ToString("HH:mm");
         }
     }

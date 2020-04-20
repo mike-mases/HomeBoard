@@ -1,3 +1,4 @@
+using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Installers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,6 +25,7 @@ namespace HomeBoard.WebApp
         {
             services.ConfigureWeatherService(Configuration);
             services.ConfigureTrainsService(Configuration);
+            services.AddTransient<IHomeBoardViewModelBuilder, HomeBoardViewModelBuilder>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

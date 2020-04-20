@@ -196,6 +196,30 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         }
 
         [Test]
+        public async Task HandleLastReportMissingTime()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-missing-last-report-time");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.LastReport.Should().Be("Currently at Waitington ()");
+        }
+
+        [Test]
+        public async Task HandleNoLastReport()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-no-last-report");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.LastReport.Should().Be("Train location unknown");
+        }
+
+        [Test]
         public async Task AddCoachesField()
         {
             var board  = ReadTestData<StationBoard>("single-train-input");
