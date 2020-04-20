@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeBoard.Models;
@@ -60,16 +61,38 @@ namespace HomeBoard.WebApp.Builders
 
         private IEnumerable<ServiceViewModel> AddServices(List<Service> services)
         {
-            return services.Select(s => new ServiceViewModel{
-                Time = FormatStationTimestamp(s.DepartTime.Timestamp),
+            return services.Select(s => new ServiceViewModel
+            {
+                Time = FormatTimestampWithDate(s.DepartTime.Timestamp),
                 Destination = s.EndStation.Name,
                 Expected = s.ExpectedDepartStatus.Time,
-                Platform = s.Platform.Number
+                Platform = s.Platform.Number,
+                Coaches = s.CoachesCount,
+                LastReport = BuildLastReport(s.LastReport)
             });
         }
 
-        private string FormatStationTimestamp(string inputTime){
+        private string BuildLastReport(LastReport report)
+        {
+            var time = FormatTimestampWithoutDate(report.Time);
+
+            if (string.IsNullOrEmpty(report.DestinationStation))
+            {
+                return $"Currently at {report.OriginStation} ({time})";
+            }
+
+            return $"Between {report.OriginStation} and {report.DestinationStation} ({time})";
+        }
+
+        private string FormatTimestampWithDate(string inputTime)
+        {
             var parsedDate = DateTime.ParseExact(inputTime, "yyyyMMddHHmmss", null);
+            return parsedDate.ToString("HH:mm");
+        }
+
+        private string FormatTimestampWithoutDate(string inputTime)
+        {
+            var parsedDate = DateTime.ParseExact(inputTime, "HHmm", CultureInfo.InvariantCulture);
             return parsedDate.ToString("HH:mm");
         }
     }

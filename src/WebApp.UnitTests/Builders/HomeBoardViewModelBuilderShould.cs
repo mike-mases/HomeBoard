@@ -170,6 +170,42 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             service.Platform.Should().Be("2");
         }
 
+        [Test]
+        public async Task AddLastReportInbetweenStations()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.LastReport.Should().Be("Between Station One and Station Two (13:15)");
+        }
+
+        [Test]
+        public async Task AddLastReportAtStation()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-at-station");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.LastReport.Should().Be("Currently at Waitington (09:45)");
+        }
+
+        [Test]
+        public async Task AddCoachesField()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Coaches.Should().Be(8);
+        }
+
         private T ReadTestData<T>(string fileName){
             var jsonString = File.ReadAllText($"./TestData/ViewModel/{fileName}.json");
             return JsonConvert.DeserializeObject<T>(jsonString);
