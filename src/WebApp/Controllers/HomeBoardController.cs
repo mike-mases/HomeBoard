@@ -27,8 +27,9 @@ namespace HomeBoard.WebApp.Controllers
                 var board = await _builder.BuildViewModel();
                 return Ok(board);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogError(e, "Error while building response");
                 return new StatusCodeResult(500);
             }
         }

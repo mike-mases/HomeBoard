@@ -55,5 +55,15 @@ namespace HomeBoard.WebApp.UnitTests.Controllers
             result.Should().BeOfType<StatusCodeResult>()
             .Which.StatusCode.Should().Be(500);
         }
+
+        [Test]
+        public async Task LogExceptions()
+        {
+            _builder.BuildViewModel().Throws(new Exception());
+            
+            await _controller.GetHomeBoard();
+
+            _logger.Received(1).LogError(Arg.Any<Exception>(), "Error while building response");
+        }
     }
 }
