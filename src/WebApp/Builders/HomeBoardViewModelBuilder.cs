@@ -53,7 +53,8 @@ namespace HomeBoard.WebApp.Builders
             var viewModel = new TrainsViewModel
             {
                 LastUpdated = trains.TimestampParsed.ToString(TimeFormat),
-                Services = AddServices(trains.Services)
+                Services = AddServices(trains.Services),
+                SpecialAnnouncements = trains.SpecialNotices.Notices.Select(n => n.Text)
             };
 
             return viewModel;

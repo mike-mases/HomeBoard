@@ -206,6 +206,19 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             service.Coaches.Should().Be(8);
         }
 
+        [Test]
+        public async Task AddSpecialAnnouncements()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            var expected = board.SpecialNotices.Notices.Select(n => n.Text);
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var trains = result.Trains;
+
+            trains.SpecialAnnouncements.Should().BeEquivalentTo(expected);
+        }
+
         private T ReadTestData<T>(string fileName){
             var jsonString = File.ReadAllText($"./TestData/ViewModel/{fileName}.json");
             return JsonConvert.DeserializeObject<T>(jsonString);
