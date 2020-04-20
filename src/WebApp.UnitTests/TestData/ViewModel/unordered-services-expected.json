@@ -1,0 +1,45 @@
+{
+    "LastUpdated": "Monday January 01, 0001 - 12:00:00 AM",
+    "Services": [
+        {
+            "Time": "13:30",
+            "Destination": "Action City",
+            "CallingAt": [
+                "Thoughtsville 13:30 (Exp. 13:34)"
+            ],
+            "LastReport": "Between Station One and Station Two (13:15)",
+            "Expected": "On Time",
+            "Platform": "2",
+            "Coaches": 8
+        },
+        {
+            "Time": "14:30",
+            "Destination": "Birmingham",
+            "CallingAt": [
+                "Tring 14:30 (Exp. 14:34)",
+                "Milton Keynes 15:30 (Exp. 15:34)"
+            ],
+            "LastReport": "Between Euston and Tring (14:15)",
+            "Expected": "Exp. 14:32",
+            "Platform": "3a",
+            "Coaches": 12
+        },
+        {
+            "Time": "00:30",
+            "Destination": "Manchester",
+            "CallingAt": [
+                "Milton Keynes 00:30 (Exp. 00:34)",
+                "Birmingham 01:30 (Exp. 01:34)",
+                "Stoke-on-Trent 02:30 (Exp. 02:34)"
+            ],
+            "LastReport": "Between Tring and Birmingham (00:15)",
+            "Expected": "On Time",
+            "Platform": "4",
+            "Coaches": 16
+        }
+    ],
+    "SpecialAnnouncements": [
+        "Sample notice",
+        "Everything's fine"
+    ]
+}

@@ -62,15 +62,25 @@ namespace HomeBoard.WebApp.Builders
 
         private IEnumerable<ServiceViewModel> AddServices(List<Service> services)
         {
-            return services.Select(s => new ServiceViewModel
+            return services
+            .OrderBy(s => s.DepartTime.Timestamp)
+            .Select(s => new ServiceViewModel
             {
                 Time = FormatTimestampWithDate(s.DepartTime.Timestamp),
                 Destination = s.EndStation.Name,
                 Expected = s.ExpectedDepartStatus.Time,
                 Platform = s.Platform.Number,
                 Coaches = s.CoachesCount,
-                LastReport = BuildLastReport(s.LastReport)
+                LastReport = BuildLastReport(s.LastReport),
+                CallingAt = BuildCallingAtEntries(s.EndStationCallingPoints)
             });
+        }
+
+        private IEnumerable<string> BuildCallingAtEntries(EndStationCallingPoints callingPoints)
+        {
+            return callingPoints
+            .CallingPoints
+            .Select(c => $"{c.Name} {FormatTimestampWithoutDate(c.TimetableDepart)} (Exp. {FormatTimestampWithoutDate(c.EstimatedDepart)})");
         }
 
         private string BuildLastReport(LastReport report)

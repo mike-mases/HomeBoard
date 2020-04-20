@@ -10,6 +10,7 @@ using HomeBoard.WebApp.Services;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
+using HomeBoard.Models;
 
 namespace HomeBoard.WebApp.UnitTests.Builders
 {
@@ -217,6 +218,45 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             var trains = result.Trains;
 
             trains.SpecialAnnouncements.Should().BeEquivalentTo(expected);
+        }
+
+        [Test]
+        public async Task AddCallingAt()
+        {
+            var board  = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.CallingAt.Should().Contain("Thoughtsville 13:30 (Exp. 13:34)");
+        }
+
+        [Test]
+        public async Task AddMultipleServices()
+        {
+            var board  = ReadTestData<StationBoard>("multiple-trains-input");
+            var expected = ReadTestData<TrainsViewModel>("multiple-trains-expected");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var trains = result.Trains;
+
+            trains.Should().BeEquivalentTo(expected);
+        }
+
+        [Test]
+        public async Task OrderServicesByDepartTime()
+        {
+            var board  = ReadTestData<StationBoard>("unordered-services-input");
+            var expected = ReadTestData<TrainsViewModel>("unordered-services-expected");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var trains = result.Trains;
+
+            trains.Services.Should().BeEquivalentTo(expected.Services,
+            options => options.WithStrictOrdering());
         }
 
         private T ReadTestData<T>(string fileName){
