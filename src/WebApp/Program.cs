@@ -21,6 +21,7 @@ namespace HomeBoard.WebApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     var config = new ConfigurationBuilder()
+                                .AddEnvironmentVariables()
                                 .AddCommandLine(args)
                                 .Build();
                     webBuilder.UseStartup<Startup>();
