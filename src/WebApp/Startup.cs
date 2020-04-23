@@ -1,8 +1,9 @@
 using HomeBoard.WebApp.Builders;
+using HomeBoard.WebApp.Hubs;
 using HomeBoard.WebApp.Installers;
+using HomeBoard.WebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,12 +28,14 @@ namespace HomeBoard.WebApp
             services.ConfigureTrainsService(Configuration);
             services.AddTransient<IHomeBoardViewModelBuilder, HomeBoardViewModelBuilder>();
             services.AddControllersWithViews();
+            services.AddSignalR();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+            services.AddHostedService<UpdateHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +65,9 @@ namespace HomeBoard.WebApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<HomeBoardUpdateHub>("/homeBoardUpdateHub");
             });
-
+            
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
