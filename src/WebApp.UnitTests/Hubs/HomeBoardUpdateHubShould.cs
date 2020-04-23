@@ -1,11 +1,14 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using HomeBoard.Models;
 using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 
 namespace HomeBoard.WebApp.UnitTests.Hubs
@@ -49,5 +52,30 @@ namespace HomeBoard.WebApp.UnitTests.Hubs
             await _clientProxy.Received(1).SendCoreAsync("homeBoardUpdate", Arg.Is<object[]>(o => o.Contains(_model)));
         }
 
+        [Test]
+        public async Task HandleExceptions()
+        {
+            _builder.BuildViewModel().Throws(new Exception());
+            await _hub.Invoking(h => h.UpdateHomeBoard()).Should().NotThrowAsync<Exception>();
+        }
+
+        [Test]
+        public async Task NotUpdateClientsWhenException()
+        {
+            _builder.BuildViewModel().Throws(new Exception());
+            await _hub.UpdateHomeBoard();
+
+            await _clientProxy.Received(0).SendCoreAsync(Arg.Any<string>(), Arg.Any<object[]>());
+        }
+
+        [Test]
+        public async Task LogExceptions()
+        {
+            var exception = new Exception();
+            _builder.BuildViewModel().Throws(exception);
+            await _hub.UpdateHomeBoard();
+
+            _logger.Received(1).LogError(exception, "Error sending update");
+        }
     }
 }

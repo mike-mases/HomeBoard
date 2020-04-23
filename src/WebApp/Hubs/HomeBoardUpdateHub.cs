@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using HomeBoard.WebApp.Builders;
 using Microsoft.AspNetCore.SignalR;
@@ -7,6 +8,7 @@ namespace HomeBoard.WebApp.Hubs
 {
     public class HomeBoardUpdateHub : Hub
     {
+        private const string SignalMethod = "homeBoardUpdate";
         private readonly IHomeBoardViewModelBuilder _builder;
         private readonly ILogger<HomeBoardUpdateHub> _logger;
 
@@ -18,8 +20,15 @@ namespace HomeBoard.WebApp.Hubs
 
         public async Task UpdateHomeBoard()
         {
-            var viewModel = await _builder.BuildViewModel();
-            await Clients.All.SendAsync("homeBoardUpdate", viewModel);
+            try
+            {
+                var viewModel = await _builder.BuildViewModel();
+                await Clients.All.SendAsync(SignalMethod, viewModel);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error sending update");
+            }
         }
     }
 }
