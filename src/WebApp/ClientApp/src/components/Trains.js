@@ -6,6 +6,10 @@ export class Trains extends Component {
         this.state = { trains: props.trains };
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({ trains: props.trains })
+    }
+
     render() {
         const trains = this.state.trains;
 
