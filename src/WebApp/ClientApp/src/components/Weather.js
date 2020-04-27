@@ -20,7 +20,7 @@ export class Weather extends Component {
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-lg-3 col-xl-2">
-                            <div class="weather-icon"></div>
+                            <div class={"weather-icon svg-" + weather.icon}></div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-lg-4 col-xl-4 temperature-copy">
                             <p>{weather.temperature.toFixed(1)}&#176;C</p>

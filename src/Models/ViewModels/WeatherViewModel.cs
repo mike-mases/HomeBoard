@@ -9,5 +9,6 @@ namespace HomeBoard.Models
         public double MaxTemp { get; set; }
         public string CityName { get; set; }
         public string Description { get; set; }
+        public string Icon { get; set; }
     }
 }

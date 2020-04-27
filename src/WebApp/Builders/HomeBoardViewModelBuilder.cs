@@ -42,7 +42,8 @@ namespace HomeBoard.WebApp.Builders
                 MaxTemp = weather.Values.MaxTemp,
                 MinTemp = weather.Values.MinTemp,
                 CityName = weather.CityName,
-                Description = weather.WeatherStats.FirstOrDefault()?.Description
+                Description = weather.WeatherStats.FirstOrDefault()?.Description,
+                Icon = weather.WeatherStats.FirstOrDefault()?.Icon
             };
 
             return viewModel;

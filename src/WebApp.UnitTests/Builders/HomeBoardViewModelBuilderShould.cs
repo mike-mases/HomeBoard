@@ -105,6 +105,14 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         }
 
         [Test]
+        public async Task AddWeatherIconField()
+        {
+            var result = await _builder.BuildViewModel();
+
+            result.Weather.Icon.Should().Be("sample-icon");
+        }
+
+        [Test]
         public async Task PopulateTrainsLastUpdatedField()
         {
             var result = await _builder.BuildViewModel();
@@ -317,8 +325,8 @@ namespace HomeBoard.WebApp.UnitTests.Builders
                     },
                     WeatherStats = new List<WeatherStatistics>
                     {
-                        new WeatherStatistics{ Description = "Perfect Weather" },
-                        new WeatherStatistics{ Description = "Terrible Weather"}
+                        new WeatherStatistics{ Description = "Perfect Weather", Icon = "sample-icon" },
+                        new WeatherStatistics{ Description = "Terrible Weather", Icon = "sample-icon" }
                     },
                     CityName = "Testville"
                 }

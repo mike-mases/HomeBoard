@@ -17,7 +17,6 @@ export class Trains extends Component {
         return (
             <div>
                 <h2 class="display-3">Trains</h2>
-                <p>Last updated: {trains.lastUpdated}</p>
                 <table className='table table-striped' aria-labelledby="tabelLabel">
                     <thead>
                         <tr>
@@ -38,6 +37,7 @@ export class Trains extends Component {
                         )}
                     </tbody>
                 </table>
+                <p>Last updated: {trains.lastUpdated}</p>
                 <h3 class="display-4">Special announcements</h3>
                 {trains.specialAnnouncements.map((announcement, index) =>
                     <p key={index} class="lead">{announcement}</p>
