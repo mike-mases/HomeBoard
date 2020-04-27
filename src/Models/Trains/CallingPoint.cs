@@ -11,11 +11,11 @@ namespace HomeBoard.Models.Trains
 		[XmlAttribute(AttributeName="crs")]
 		public string Crs { get; set; }
 		[XmlAttribute(AttributeName="ttarr")]
-		public string TimetableArrive { get; set; }
+		public string TimetableArrival { get; set; }
 		[XmlAttribute(AttributeName="ttdep")]
 		public string TimetableDepart { get; set; }
 		[XmlAttribute(AttributeName="etarr")]
-		public string EstimatedArrive { get; set; }
+		public string EstimatedArrival { get; set; }
 		[XmlAttribute(AttributeName="etdep")]
 		public string EstimatedDepart { get; set; }
 		[XmlAttribute(AttributeName="type")]

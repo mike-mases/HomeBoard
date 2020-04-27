@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Table } from 'reactstrap';
 import './Trains.css'
 
 export class Trains extends Component {
@@ -16,31 +17,40 @@ export class Trains extends Component {
 
         return (
             <div>
-                <h2 class="display-3">Trains</h2>
-                <table className='table table-striped' aria-labelledby="tabelLabel">
+                <h2 className="display-3">Trains</h2>
+
+                <Table striped>
                     <thead>
                         <tr>
                             <th>Time</th>
                             <th>Destination</th>
+                            <th>Duration</th>
                             <th>Platform</th>
                             <th>Expected</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {trains.services.map(service =>
-                            <tr key={service.time}>
-                                <td>{service.time}</td>
-                                <td>{service.destination}</td>
-                                <td>{service.platform}</td>
-                                <td>{service.expected}</td>
-                            </tr>
+                        {trains.services.map(service => {
+                            return [
+                                <tr key={service.time}>
+                                    <td>{service.time}</td>
+                                    <td>{service.destination.name}</td>
+                                    <td>{service.destination.duration}m</td>
+                                    <td>{service.platform}</td>
+                                    <td>{service.expected}</td>
+                                </tr>
+                                // <tr key={service.time + "-callingat"}>
+                                //     <td colSpan="5"><div className="marquee"><p>{service.callingAt.join(' ')}</p></div></td>
+                                // </tr>
+                            ];
+                        }
                         )}
                     </tbody>
-                </table>
+                </Table>
                 <p>Last updated: {trains.lastUpdated}</p>
-                <h3 class="display-4">Special announcements</h3>
+                <h3 className="display-4">Special announcements</h3>
                 {trains.specialAnnouncements.map((announcement, index) =>
-                    <p key={index} class="lead">{announcement}</p>
+                    <p key={index} className="lead">{announcement}</p>
                 )}
             </div>);
     }

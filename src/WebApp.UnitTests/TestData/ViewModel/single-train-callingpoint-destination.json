@@ -13,7 +13,15 @@
                     {
                         "Name": "Thoughtsville",
                         "TimetableDepart": "1330",
-                        "EstimatedDepart": "1334"
+                        "EstimatedDepart": "1334",
+                        "Crs": "THV"
+                    },
+                    {
+                        "Name": "Midtown",
+                        "TimetableArrival": "1339",
+                        "TimetableDepart": "1340",
+                        "EstimatedDepart": "1344",
+                        "Crs": "MID"
                     }
                 ]
             },

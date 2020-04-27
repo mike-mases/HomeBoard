@@ -11,9 +11,9 @@ namespace HomeBoard.Models.Trains
 		[XmlAttribute(AttributeName="crs")]
 		public string Crs { get; set; }
 		[XmlAttribute(AttributeName="ttarr")]
-		public string Ttarr { get; set; }
+		public string TimetableArrival { get; set; }
 		[XmlAttribute(AttributeName="etarr")]
-		public string Etarr { get; set; }
+		public string EstimatedArrival { get; set; }
 	}
 
 }

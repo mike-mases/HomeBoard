@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 using HomeBoard.Models;
+using Microsoft.Extensions.Options;
+using HomeBoard.Models.Configuration;
 
 namespace HomeBoard.WebApp.UnitTests.Builders
 {
@@ -26,7 +28,9 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         {
             _weatherService = Substitute.For<IWeatherService>();
             _trainsService = Substitute.For<ITrainsService>();
-            _builder = new HomeBoardViewModelBuilder(_weatherService, _trainsService);
+            var options = Substitute.For<IOptions<TrainsConfiguration>>();
+            options.Value.Returns(new TrainsConfiguration { Destinations = new List<string> { "MID" } });
+            _builder = new HomeBoardViewModelBuilder(_weatherService, _trainsService, options);
             CreateWeatherResponse();
             CreateStationBoard();
         }
@@ -123,7 +127,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddTrainServiceToViewModel()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -134,7 +138,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddTimeField()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -146,19 +150,55 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddDestinationField()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
             var service = result.Trains.Services.FirstOrDefault();
 
-            service.Destination.Should().Be("Action City");
+            service.Destination.Name.Should().Be("Action City");
+        }
+
+        [Test]
+        public async Task AddDestinationDurationField()
+        {
+            var board = ReadTestData<StationBoard>("single-train-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Destination.Duration.Should().Be(53);
+        }
+
+        [Test]
+        public async Task AddDestinationDurationFieldIfCallingPointOfInterest()
+        {
+            var board = ReadTestData<StationBoard>("single-train-callingpoint-destination");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Destination.Duration.Should().Be(9);
+        }
+
+        [Test]
+        public async Task AddDestinationIfCallingPointOfInterest()
+        {
+            var board = ReadTestData<StationBoard>("single-train-callingpoint-destination");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Destination.Name.Should().Be("Midtown");
         }
 
         [Test]
         public async Task AddExpectedField()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -170,7 +210,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddPlatformField()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -182,7 +222,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddLastReportInbetweenStations()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -194,7 +234,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddLastReportAtStation()
         {
-            var board  = ReadTestData<StationBoard>("single-train-at-station");
+            var board = ReadTestData<StationBoard>("single-train-at-station");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -206,7 +246,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task HandleLastReportMissingTime()
         {
-            var board  = ReadTestData<StationBoard>("single-train-missing-last-report-time");
+            var board = ReadTestData<StationBoard>("single-train-missing-last-report-time");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -218,7 +258,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task HandleNoLastReport()
         {
-            var board  = ReadTestData<StationBoard>("single-train-no-last-report");
+            var board = ReadTestData<StationBoard>("single-train-no-last-report");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -230,7 +270,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddCoachesField()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -242,7 +282,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddSpecialAnnouncements()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             var expected = board.SpecialNotices.Notices.Select(n => n.Text);
             _trainsService.GetStationBoard().Returns(board);
 
@@ -255,7 +295,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddCallingAt()
         {
-            var board  = ReadTestData<StationBoard>("single-train-input");
+            var board = ReadTestData<StationBoard>("single-train-input");
             _trainsService.GetStationBoard().Returns(board);
 
             var result = await _builder.BuildViewModel();
@@ -267,7 +307,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task AddMultipleServices()
         {
-            var board  = ReadTestData<StationBoard>("multiple-trains-input");
+            var board = ReadTestData<StationBoard>("multiple-trains-input");
             var expected = ReadTestData<TrainsViewModel>("multiple-trains-expected");
             _trainsService.GetStationBoard().Returns(board);
 
@@ -280,7 +320,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         [Test]
         public async Task OrderServicesByDepartTime()
         {
-            var board  = ReadTestData<StationBoard>("unordered-services-input");
+            var board = ReadTestData<StationBoard>("unordered-services-input");
             var expected = ReadTestData<TrainsViewModel>("unordered-services-expected");
             _trainsService.GetStationBoard().Returns(board);
 
@@ -291,7 +331,8 @@ namespace HomeBoard.WebApp.UnitTests.Builders
             options => options.WithStrictOrdering());
         }
 
-        private T ReadTestData<T>(string fileName){
+        private T ReadTestData<T>(string fileName)
+        {
             var jsonString = File.ReadAllText($"./TestData/ViewModel/{fileName}.json");
             return JsonConvert.DeserializeObject<T>(jsonString);
         }
@@ -302,8 +343,9 @@ namespace HomeBoard.WebApp.UnitTests.Builders
                 new StationBoard
                 {
                     Timestamp = "16/04/2020 13:43:05",
-                    Services = services != null? services : new List<Service>(),
-                    SpecialNotices = new SpecialNotices {
+                    Services = services != null ? services : new List<Service>(),
+                    SpecialNotices = new SpecialNotices
+                    {
                         Notices = notices != null ? notices : new List<SpecialNotice>()
                     }
                 }

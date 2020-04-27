@@ -4,8 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeBoard.Models;
+using HomeBoard.Models.Configuration;
 using HomeBoard.Models.Trains;
 using HomeBoard.WebApp.Services;
+using Microsoft.Extensions.Options;
 
 namespace HomeBoard.WebApp.Builders
 {
@@ -16,10 +18,15 @@ namespace HomeBoard.WebApp.Builders
         private readonly IWeatherService _weatherService;
         private readonly ITrainsService _trainsService;
 
-        public HomeBoardViewModelBuilder(IWeatherService weatherService, ITrainsService trainsService)
+        private readonly TrainsConfiguration _config;
+
+        public HomeBoardViewModelBuilder(IWeatherService weatherService,
+        ITrainsService trainsService,
+        IOptions<TrainsConfiguration> options)
         {
             _weatherService = weatherService;
             _trainsService = trainsService;
+            _config = options.Value;
         }
 
         public async Task<HomeBoardViewModel> BuildViewModel()
@@ -69,13 +76,50 @@ namespace HomeBoard.WebApp.Builders
             .Select(s => new ServiceViewModel
             {
                 Time = FormatTimestampWithDate(s.DepartTime.Timestamp),
-                Destination = s.EndStation.Name,
+                Destination = GetDestination(s),
                 Expected = s.ExpectedDepartStatus.Time,
                 Platform = s.Platform.Number,
                 Coaches = s.CoachesCount,
                 LastReport = BuildLastReport(s.LastReport),
                 CallingAt = BuildCallingAtEntries(s.EndStationCallingPoints)
             });
+        }
+
+        private DestinationViewModel GetDestination(Service service)
+        {
+            var endPoints = _config.Destinations;
+            var callingPointDestination = service.EndStationCallingPoints.CallingPoints.FirstOrDefault(c => endPoints.Contains(c.Crs));
+
+            if (callingPointDestination != null)
+            {
+                return new DestinationViewModel
+                {
+                    Name = callingPointDestination.Name,
+                    Duration = GetServiceDuration(service.DepartTime.Timestamp, callingPointDestination.TimetableArrival)
+                };
+            }
+
+            return new DestinationViewModel
+            {
+                Name = service.EndStation.Name,
+                Duration = GetServiceDuration(service.DepartTime.Timestamp, service.EndStation.TimetableArrival)
+            };
+        }
+
+        private int GetServiceDuration(string departTimestamp, string arrivalTime)
+        {
+            DateTime parsedArrive;
+            var parsedDepart = DateTime.ParseExact(departTimestamp, "yyyyMMddHHmmss", null);
+            var success = DateTime.TryParseExact(arrivalTime, "HHmm", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedArrive);
+
+            if (!success)
+            {
+                return 0;
+            }
+
+            var timeSpan = parsedArrive.Subtract(parsedDepart);
+
+            return timeSpan.Minutes;
         }
 
         private IEnumerable<string> BuildCallingAtEntries(EndStationCallingPoints callingPoints)
@@ -89,7 +133,8 @@ namespace HomeBoard.WebApp.Builders
         {
             var time = FormatTimestampWithoutDate(report.Time);
 
-            if (string.IsNullOrEmpty(report.OriginStation)){
+            if (string.IsNullOrEmpty(report.OriginStation))
+            {
                 return "Train location unknown";
             }
 

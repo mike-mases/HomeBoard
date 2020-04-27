@@ -3,7 +3,9 @@
     "Services": [
         {
             "Time": "13:30",
-            "Destination": "Action City",
+            "Destination": {
+                "Name": "Action City"
+            },
             "CallingAt": [
                 "Thoughtsville 13:30 (Exp. 13:34)"
             ],
@@ -14,7 +16,9 @@
         },
         {
             "Time": "14:30",
-            "Destination": "Birmingham",
+            "Destination": {
+                "Name": "Birmingham"
+            },
             "CallingAt": [
                 "Tring 14:30 (Exp. 14:34)",
                 "Milton Keynes 15:30 (Exp. 15:34)"
@@ -26,7 +30,9 @@
         },
         {
             "Time": "00:30",
-            "Destination": "Manchester",
+            "Destination": {
+                "Name": "Manchester"
+            },
             "CallingAt": [
                 "Milton Keynes 00:30 (Exp. 00:34)",
                 "Birmingham 01:30 (Exp. 01:34)",

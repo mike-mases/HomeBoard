@@ -40,7 +40,7 @@ export class Home extends Component {
 
     return (
       <div>
-        <h1 class="display-1">{this.greetingsMessage()}</h1>
+        <h1 className="display-1">{this.greetingsMessage()}</h1>
         {weatherContent}
         {trainsContent}
       </div>

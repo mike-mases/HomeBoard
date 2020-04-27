@@ -10,7 +10,7 @@ namespace HomeBoard.Models
         }
 
         public string Time { get; set; }
-        public string Destination { get; set; }
+        public DestinationViewModel Destination { get; set; }
         public IEnumerable<string> CallingAt { get; set; }
         public string LastReport { get; set; }
         public string Expected { get; set; }
