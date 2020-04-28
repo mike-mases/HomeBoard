@@ -27,6 +27,7 @@ export class Trains extends Component {
                             <th>Duration</th>
                             <th>Platform</th>
                             <th>Expected</th>
+                            <th>Coaches</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,6 +39,7 @@ export class Trains extends Component {
                                     <td>{service.destination.duration}m</td>
                                     <td>{service.platform}</td>
                                     <td data-ontime={service.expected == "On time"}>{service.expected}</td>
+                                    <td>{service.coaches}</td>
                                 </tr>
                                 // <tr key={service.time + "-callingat"}>
                                 //     <td colSpan="5"><div className="marquee"><p>{service.callingAt.join(' ')}</p></div></td>
@@ -47,7 +49,9 @@ export class Trains extends Component {
                         )}
                     </tbody>
                 </Table>
-                <p>Last updated: {trains.lastUpdated}</p>
+                <div className="last-updated">
+                    <p>Last updated: {trains.lastUpdated}</p>
+                </div>
                 <h3 className="display-4">Special announcements</h3>
                 {trains.specialAnnouncements.map((announcement, index) =>
                     <p key={index} className="lead">{announcement}</p>
