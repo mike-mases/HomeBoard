@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="60.953739"
+   viewBox="0 0 47.356229 45.716234"
+   width="63.140354"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="11d 11n.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview12"
+     showgrid="false"
+     units="px"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-bottom="5"
+     fit-margin-right="5"
+     inkscape:zoom="3.0736729"
+     inkscape:cx="33.103471"
+     inkscape:cy="28.322859"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <g
+     id="g59"
+     transform="translate(-3.9653914,-4.3198427)">
+    <path
+       d="m 32.964031,32.651916 a 12.291,12.291 0 1 0 -11.811999,-15.659 8.582,8.582 0 1 0 -4.854001,15.659 z"
+       id="path4-8"
+       inkscape:connector-curvature="0"
+       style="fill:#483737;stroke-width:1" />
+    <path
+       d="M 35.272,35.883 A 12.291,12.291 0 1 0 23.46,20.224 8.582,8.582 0 1 0 18.606,35.883 Z"
+       id="path4"
+       inkscape:connector-curvature="0"
+       style="fill:#b9d8e8" />
+    <polygon
+       points="29.34,35.873 31.256,28.003 22.134,38.275 27.652,38.34 25.622,46.286 35.452,35.873 "
+       id="polygon6"
+       style="fill:#d86837" />
+  </g>
+</svg>
