@@ -26,20 +26,31 @@ namespace HomeBoard.WebApp.Services
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Starting Update Hosted service");
+            _logger.LogInformation("Starting Update Hosted Service");
             _timer = new Timer(async (e) =>
             {
-                _logger.LogInformation("Sending update");
-                var viewModel = await _builder.BuildViewModel();
-                await _hub.Clients.All.SendAsync(SignalMethod, viewModel);
+                await UpdateClients();
             }, null, 0, 2000);
 
             return Task.CompletedTask;
         }
 
+        private async Task UpdateClients()
+        {
+            try
+            {
+                var viewModel = await _builder.BuildViewModel();
+                await _hub.Clients.All.SendAsync(SignalMethod, viewModel);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error sending update to clients");
+            }
+        }
+
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Update Hosted Service is stopping.");
+            _logger.LogInformation("Update Hosted Service is stopping");
             _timer?.Change(Timeout.Infinite, 0);
 
             return Task.CompletedTask;

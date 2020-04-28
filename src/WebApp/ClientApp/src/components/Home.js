@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Weather } from './Weather';
 import { Trains } from './Trains';
-import * as signalR from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -15,6 +15,7 @@ export class Home extends Component {
     await this.getHomeBoardData();
     const hubConnection = new signalR.HubConnectionBuilder()
       .withUrl("/homeBoardUpdateHub")
+      .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
@@ -27,6 +28,18 @@ export class Home extends Component {
 
     this.state.hubConnection.on('homeBoardUpdate', (data) => {
       this.setState({ weather: data.weather, trains: data.trains });
+    });
+
+    this.state.hubConnection.onclose(() => {
+      console.log('Connection disconnected. Waiting 20s');
+      setTimeout(function () {
+        console.log('Starting connection');
+        this.state.hubConnection.start();
+      }, 20000);
+    });
+
+    this.state.hubConnection.onreconnecting(error => {
+      console.log(`Connection lost due to error "${error}". Reconnecting.`);
     });
   }
 
