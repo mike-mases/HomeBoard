@@ -37,7 +37,7 @@ export class Trains extends Component {
                                     <td>{service.destination.name}</td>
                                     <td>{service.destination.duration}m</td>
                                     <td>{service.platform}</td>
-                                    <td>{service.expected}</td>
+                                    <td data-ontime={service.expected == "On time"}>{service.expected}</td>
                                 </tr>
                                 // <tr key={service.time + "-callingat"}>
                                 //     <td colSpan="5"><div className="marquee"><p>{service.callingAt.join(' ')}</p></div></td>

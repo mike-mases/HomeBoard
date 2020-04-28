@@ -4,11 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HomeBoard.Models;
+using HomeBoard.Models.Configuration;
 using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Hubs;
 using HomeBoard.WebApp.Services;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
@@ -37,7 +39,9 @@ namespace HomeBoard.WebApp.UnitTests.Services
             _clientProxy = Substitute.For<IClientProxy>();
             _hub.Clients.Returns(clients);
             clients.All.Returns(_clientProxy);
-            _service = new UpdateHostedService(_hub, _builder, _logger);
+            var options = Substitute.For<IOptions<UpdateServiceConfiguration>>();
+            options.Value.Returns(new UpdateServiceConfiguration { RefreshMilliseconds = 20000 });
+            _service = new UpdateHostedService(_hub, _builder, _logger, options);
         }
 
         [Test]

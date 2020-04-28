@@ -1,11 +1,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using HomeBoard.Models.Configuration;
 using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace HomeBoard.WebApp.Services
 {
@@ -16,12 +18,18 @@ namespace HomeBoard.WebApp.Services
         private readonly IHomeBoardViewModelBuilder _builder;
         private readonly ILogger<UpdateHostedService> _logger;
         private Timer _timer;
+        private UpdateServiceConfiguration _config;
 
-        public UpdateHostedService(IHubContext<HomeBoardUpdateHub> hub, IHomeBoardViewModelBuilder builder, ILogger<UpdateHostedService> logger)
+        public UpdateHostedService(
+            IHubContext<HomeBoardUpdateHub> hub,
+            IHomeBoardViewModelBuilder builder,
+            ILogger<UpdateHostedService> logger,
+            IOptions<UpdateServiceConfiguration> options)
         {
             _hub = hub;
             _builder = builder;
             _logger = logger;
+            _config = options.Value;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -30,7 +38,7 @@ namespace HomeBoard.WebApp.Services
             _timer = new Timer(async (e) =>
             {
                 await UpdateClients();
-            }, null, 0, 2000);
+            }, null, 0, _config.RefreshMilliseconds);
 
             return Task.CompletedTask;
         }

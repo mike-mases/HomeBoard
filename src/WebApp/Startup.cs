@@ -1,3 +1,4 @@
+using HomeBoard.Models.Configuration;
 using HomeBoard.WebApp.Builders;
 using HomeBoard.WebApp.Hubs;
 using HomeBoard.WebApp.Installers;
@@ -26,6 +27,7 @@ namespace HomeBoard.WebApp
         {
             services.ConfigureWeatherService(Configuration);
             services.ConfigureTrainsService(Configuration);
+            services.Configure<UpdateServiceConfiguration>(Configuration.GetSection("UpdateService"));
             services.AddTransient<IHomeBoardViewModelBuilder, HomeBoardViewModelBuilder>();
             services.AddControllersWithViews();
             services.AddSignalR();
