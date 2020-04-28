@@ -184,6 +184,18 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         }
 
         [Test]
+        public async Task HandleDurationArrivingTheNextDay()
+        {
+            var board = ReadTestData<StationBoard>("single-train-eod-input");
+            _trainsService.GetStationBoard().Returns(board);
+
+            var result = await _builder.BuildViewModel();
+            var service = result.Trains.Services.FirstOrDefault();
+
+            service.Destination.Duration.Should().Be(73);
+        }
+
+        [Test]
         public async Task AddDestinationIfCallingPointOfInterest()
         {
             var board = ReadTestData<StationBoard>("single-train-callingpoint-destination");

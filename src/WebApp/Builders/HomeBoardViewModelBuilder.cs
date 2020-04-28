@@ -117,9 +117,16 @@ namespace HomeBoard.WebApp.Builders
                 return 0;
             }
 
-            var timeSpan = parsedArrive.Subtract(parsedDepart);
+            var calculatedArrival = parsedDepart.Date.Add(parsedArrive.TimeOfDay);
 
-            return timeSpan.Minutes;
+            if (calculatedArrival < parsedDepart)
+            {
+                calculatedArrival = calculatedArrival.AddDays(1);
+            }
+
+            var duration = calculatedArrival.Subtract(parsedDepart);
+
+            return (int)duration.TotalMinutes;
         }
 
         private IEnumerable<string> BuildCallingAtEntries(EndStationCallingPoints callingPoints)
