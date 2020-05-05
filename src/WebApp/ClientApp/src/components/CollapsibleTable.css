@@ -1,0 +1,82 @@
+.table {
+    position: relative;
+    width: 100%;
+    min-width: fit-content;
+    height: 100%;
+    font-size: 1.2em;
+    color: #ffffff;
+    font-weight: bold;
+}
+.table .header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    height: 30px;
+    width: 100%;
+    border-bottom: 1px solid #d3d3d3;
+}
+.table .header .hcol {
+    display: flex;
+    border-color: #DFDFDF;
+    justify-content: space-between;
+    padding: 0 7px;
+    height: 30px;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+.table ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    top: 32px;
+    width: 100%;
+}
+.table ul li.outer {
+    width: 100%;
+    border-bottom: 1px solid #DFDFDF;
+}
+.table ul li .heading {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: background 0.5s;
+    background: #116891;
+}
+.table ul li .heading .col {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+}
+.table ul li .content {
+    width: 100%;
+    height: 0px;
+    opacity: 0;
+    padding: 0px 10px;
+    transition: opacity ease 0.5s, height ease-out 0.5s;
+}
+.table ul li.open .heading {
+    background: #0e5575;
+}
+.table ul li.open .content {
+    opacity: 1;
+    transition: opacity ease 0.5s, height ease-out 0.5s;
+}
+
+.last-report {
+    margin-top: 15px;
+    font-weight: bold;
+}
+.table ul li .heading .col[data-ontime="false"] {
+    color: rgb(190, 15, 15);
+    font-weight: bold;
+} 
+  

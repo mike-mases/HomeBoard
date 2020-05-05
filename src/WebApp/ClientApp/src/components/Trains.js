@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+// import { Table } from 'reactstrap';
+import { CollapsibleTable } from './CollapsibleTable'
 import './Trains.css'
 
 export class Trains extends Component {
@@ -15,55 +16,20 @@ export class Trains extends Component {
     render() {
         const trains = this.state.trains;
 
-        const toggle = () => this.setState({ isOpen: !this.state.isOpen });
+        // const toggle = () => this.setState({ isOpen: !this.state.isOpen });
+        let cols = [
+            "Time",
+            "Destination",
+            "Duration",
+            "Platform",
+            "Expected",
+            "Coaches"
+        ];
 
         return (
             <div>
                 <h2 className="display-3">Trains</h2>
-
-                <Table striped className="fold-table">
-                    <colgroup>
-                        <col style={{ width: 15 + '%' }} />
-                        <col style={{ width: 25 + '%' }} />
-                        <col style={{ width: 15 + '%' }} />
-                        <col style={{ width: 15 + '%' }} />
-                        <col style={{ width: 20 + '%' }} />
-                        <col style={{ width: 10 + '%' }} />
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Destination</th>
-                            <th>Duration</th>
-                            <th>Platform</th>
-                            <th>Expected</th>
-                            <th>Coaches</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {trains.services.map(service => {
-                            return [
-                                <tr key={service.time} onClick={toggle}>
-                                    <td>{service.time}</td>
-                                    <td>{service.destination.name}</td>
-                                    <td>{service.destination.duration}m</td>
-                                    <td>{service.platform}</td>
-                                    <td data-ontime={service.expected == "On time"}>{service.expected}</td>
-                                    <td>{service.coaches}</td>
-                                </tr>,
-                                <tr className={this.state.isOpen ? "open" : "closed"}>
-                                    <td colSpan="3">{service.callingAt.map((callingPoint, index) => {
-                                        return <p key={index}>{callingPoint}</p>
-                                    })}
-                                    </td>
-                                    <td colSpan="3">{service.lastReport}</td>
-                                </tr>
-
-                            ];
-                        }
-                        )}
-                    </tbody>
-                </Table>
+                <CollapsibleTable data={trains.services} columns={cols} />
                 <div className="last-updated">
                     <p>Last updated: {trains.lastUpdated}</p>
                 </div>

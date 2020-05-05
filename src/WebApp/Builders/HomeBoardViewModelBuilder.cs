@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using HomeBoard.Models;
 using HomeBoard.Models.Configuration;
@@ -18,15 +19,19 @@ namespace HomeBoard.WebApp.Builders
         private readonly IWeatherService _weatherService;
         private readonly ITrainsService _trainsService;
 
-        private readonly TrainsConfiguration _config;
+        private readonly TrainsConfiguration _trainsConfig;
+        private readonly TimezoneConfiguration _timezoneConfig;
 
         public HomeBoardViewModelBuilder(IWeatherService weatherService,
         ITrainsService trainsService,
-        IOptions<TrainsConfiguration> options)
+        IOptions<TrainsConfiguration> trainsOptions,
+        IOptions<TimezoneConfiguration> timezoneOptions
+        )
         {
             _weatherService = weatherService;
             _trainsService = trainsService;
-            _config = options.Value;
+            _trainsConfig = trainsOptions.Value;
+            _timezoneConfig = timezoneOptions.Value;
         }
 
         public async Task<HomeBoardViewModel> BuildViewModel()
@@ -43,7 +48,7 @@ namespace HomeBoard.WebApp.Builders
             var weather = await _weatherService.GetCurrentWeather();
             var viewModel = new WeatherViewModel
             {
-                LastUpdated = weather.LocalTime.ToString(TimeFormat),
+                LastUpdated = GetWeatherUpdatedTime(weather.UtcTime),
                 Temperature = weather.Values.Temperature,
                 FeelsLike = weather.Values.FeelsLike,
                 MaxTemp = weather.Values.MaxTemp,
@@ -54,6 +59,37 @@ namespace HomeBoard.WebApp.Builders
             };
 
             return viewModel;
+        }
+
+        private string GetWeatherUpdatedTime(DateTime weatherUtc)
+        {
+            var isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            TimeZoneInfo info;
+            DateTime convertedTime;
+
+            if (isWindows)
+            {
+                info = TimeZoneInfo.FindSystemTimeZoneById(_timezoneConfig.Windows);
+                convertedTime = TimeZoneInfo.ConvertTime(weatherUtc, info);
+            }
+            else
+            {
+                info = TimeZoneInfo.FindSystemTimeZoneById(_timezoneConfig.Linux);
+                convertedTime = TimeZoneInfo.ConvertTime(weatherUtc, info);
+                convertedTime = ApplyDaylightSavings(info, convertedTime);
+            }
+
+            return convertedTime.ToString(TimeFormat);
+        }
+
+        private static DateTime ApplyDaylightSavings(TimeZoneInfo info, DateTime convertedTime)
+        {
+            if (info.IsDaylightSavingTime(convertedTime))
+            {
+                convertedTime = convertedTime.AddHours(1);
+            }
+
+            return convertedTime;
         }
 
         private async Task<TrainsViewModel> GetTrainsData()
@@ -87,7 +123,7 @@ namespace HomeBoard.WebApp.Builders
 
         private DestinationViewModel GetDestination(Service service)
         {
-            var endPoints = _config.Destinations;
+            var endPoints = _trainsConfig.Destinations;
             var callingPointDestination = service.EndStationCallingPoints.CallingPoints.FirstOrDefault(c => endPoints.Contains(c.Crs));
 
             if (callingPointDestination != null)

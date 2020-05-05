@@ -28,9 +28,11 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         {
             _weatherService = Substitute.For<IWeatherService>();
             _trainsService = Substitute.For<ITrainsService>();
-            var options = Substitute.For<IOptions<TrainsConfiguration>>();
-            options.Value.Returns(new TrainsConfiguration { Destinations = new List<string> { "MID" } });
-            _builder = new HomeBoardViewModelBuilder(_weatherService, _trainsService, options);
+            var trainsOptions = Substitute.For<IOptions<TrainsConfiguration>>();
+            trainsOptions.Value.Returns(new TrainsConfiguration { Destinations = new List<string> { "MID" } });
+            var timezoneOptions = Substitute.For<IOptions<TimezoneConfiguration>>();
+            timezoneOptions.Value.Returns(new TimezoneConfiguration { Windows = "Greenwich Standard Time" });
+            _builder = new HomeBoardViewModelBuilder(_weatherService, _trainsService, trainsOptions, timezoneOptions);
             CreateWeatherResponse();
             CreateStationBoard();
         }
@@ -48,7 +50,7 @@ namespace HomeBoard.WebApp.UnitTests.Builders
         {
             var result = await _builder.BuildViewModel();
 
-            result.Weather.LastUpdated.Should().Be("Wednesday April 15, 2020 - 9:01:49 AM");
+            result.Weather.LastUpdated.Should().Be("Wednesday April 15, 2020 - 8:01:49 AM");
         }
 
         [Test]

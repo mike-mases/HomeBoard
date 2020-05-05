@@ -16,6 +16,7 @@ code {
 body {
   background-color: #6080b3;
   color: #fff;
+  min-width: fit-content;
 }
 
 .last-updated {

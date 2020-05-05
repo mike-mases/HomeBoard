@@ -30,13 +30,13 @@ namespace HomeBoard.Models.Weather
         [JsonProperty("name")]
         public string CityName { get; set; }
 
-        public DateTime LocalTime
+        public DateTime UtcTime
         {
             get
             {
                 var time = new DateTime(1970, 1, 1).ToUniversalTime();
                 time = time.AddSeconds(Time);
-                return time.ToLocalTime();
+                return time;
             }
         }
     }

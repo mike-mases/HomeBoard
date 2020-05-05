@@ -28,6 +28,7 @@ namespace HomeBoard.WebApp
             services.ConfigureWeatherService(Configuration);
             services.ConfigureTrainsService(Configuration);
             services.Configure<UpdateServiceConfiguration>(Configuration.GetSection("UpdateService"));
+            services.Configure<TimezoneConfiguration>(Configuration.GetSection("Timezone"));
             services.AddTransient<IHomeBoardViewModelBuilder, HomeBoardViewModelBuilder>();
             services.AddControllersWithViews();
             services.AddSignalR();
